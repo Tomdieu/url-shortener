@@ -1,12 +1,4 @@
 import React from "react";
-import {LinkPreview} from "@dhaiwat10/react-link-preview"
-
-// import {
-//     Tooltip,
-//     TooltipContent,
-//     TooltipProvider,
-//     TooltipTrigger,
-//   } from "@/components/ui/tooltip"
 
 type Props = {};
 
@@ -40,7 +32,6 @@ const TopShortenUrl = (props: Props) => {
           </div>
         ))}
       </div>
-      <LinkPreview url="https://github.com/tomdieu" width={300}/>
     </div>
   );
 };

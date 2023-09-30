@@ -6,7 +6,7 @@ import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "react-hot-toast";
 import getCurrentUser from "@/lib/getCurrentUser";
 
-const inter = Inter({ subsets: ["latin"] });
+// const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,7 +23,7 @@ export default async function RootLayout({
   console.log(currentUser);
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={''}>
         <Toaster />
         <NextTopLoader />
           <NextUiProvider>
