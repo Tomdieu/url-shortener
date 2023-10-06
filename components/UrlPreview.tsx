@@ -3,6 +3,8 @@ import { Skeleton } from "./ui/skeleton";
 import { Divider, Card, CardHeader, CardBody, CardFooter } from "@nextui-org/react";
 import Iframe from "react-iframe";
 import Image from "next/image";
+import { AspectRatio } from "@/components/ui/aspect-ratio"
+import Link from "next/link"
 interface Props {
   url: string;
 }
@@ -45,15 +47,17 @@ const UrlPreview: React.FC<Props> = ({ url }) => {
         </div>
       ) : (
         <Card className="bg-white shadow-lg rounded-lg overflow-hidden my-3">
-          <a
+          <Link
             href={url}
             target="_blank"
             rel="noopener noreferrer"
             className="block"
           >
             {metadata.image ? (
-              <CardHeader className="justify-between">
-                <Image width={'100'} src={metadata.image} height={100} alt={metadata.title} className="w-full mx-auto" />
+              <CardHeader className="justify-between py-3 items-center">
+                {/* <AspectRatio ratio={16 / 9}>
+                </AspectRatio> */}
+                <Image width={500} src={metadata.image} height={500} alt={metadata.title} className="w-full h-[300px]" />
               </CardHeader>
             ) : (
               <CardBody className="px-3 py-0 text-small text-default-400">
@@ -66,11 +70,11 @@ const UrlPreview: React.FC<Props> = ({ url }) => {
               </CardBody>
             )}
             <Divider />
-            <CardBody className="px-3 py-0 text-small">
+            <CardBody className="px-3 py-1 text-small">
               <h5 className="text-xl font-bold">{metadata.title}</h5>
               <p className="text-gray-600">{metadata.description}</p>
             </CardBody>
-          </a>
+          </Link>
         </Card>
       )}
     </div>
