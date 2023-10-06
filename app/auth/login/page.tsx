@@ -7,14 +7,13 @@ type Props = {};
 export const metadata: Metadata = {
   title: 'Trix Url | Login',
   description: 'Authenticate',
-  
-}
 
+}
 const LoginPage = (props: Props) => {
-  
+
   return (
     <React.Fragment>
-      <LoginForm/>
+      <LoginForm />
     </React.Fragment>
   )
 };

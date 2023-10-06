@@ -2,10 +2,10 @@ import React from 'react'
 
 type Props = {}
 
-const page = (props: Props) => {
+const LinkDetail = (props: Props) => {
   return (
-    <div>page</div>
+    <div>LinkDetail</div>
   )
 }
 
-export default page
+export default LinkDetail 

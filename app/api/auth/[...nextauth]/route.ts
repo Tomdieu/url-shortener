@@ -15,11 +15,6 @@ export const authOptions: AuthOptions = {
             clientId: process.env.GITHUB_ID as string,
             clientSecret: process.env.GITHUB_SECRET as string,
 
-            profile(profile: GithubProfile) {
-                return { ...profile, id: profile.id.toString(), image: profile.avatar_url }
-            }
-
-
         }),
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -31,12 +26,12 @@ export const authOptions: AuthOptions = {
                 email: {
                     label: 'Email',
                     type: 'text',
-                    placeholder: 'name@domain.com'
+                    placeholder: 'supports@trix.com'
                 },
                 password: {
                     label: 'Password',
                     type: 'password',
-                    placeholder: '******'
+                    placeholder: '************'
                 }
             },
             async authorize(credentials) {
@@ -67,8 +62,7 @@ export const authOptions: AuthOptions = {
         })
     ],
     pages: {
-        signIn: '/api/auth/signin',
-
+        signIn: '/auth/login',
         signOut: '/auth'
     },
     debug: process.env.NODE_ENV === 'development',
@@ -77,7 +71,8 @@ export const authOptions: AuthOptions = {
 
     },
     secret: process.env.NEXTAUTH_SCRET,
-    
+
+
 }
 
 const handler = NextAuth(authOptions)

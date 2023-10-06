@@ -53,13 +53,14 @@ const Dashboard = (props: Props) => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 my-2">
         <TopShortenUrl />
       </div>
-      <div className="w-[500px] h-[400px] my-5">
+      <div className="my-5 w-full justify-start items-center flex gap-5">
         <UrlPreview
           url={"http://github.com/tomdieu"}
         // url={'https://github.com/Tomdieu/momo-app-clone'}
         // url={'http://localhost:3000/dashboard'}
 
         />
+        <UrlPreview url={'https://ui.shadcn.com/docs/components/aspect-ratio'} />
       </div>
     </div>
   );

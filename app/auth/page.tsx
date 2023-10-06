@@ -4,7 +4,6 @@ import Link from "next/link";
 import React from "react";
 
 type Props = {};
-
 const AuthPage = (props: Props) => {
   return (
     <div className="flex-1 flex flex-col h-full">
@@ -21,7 +20,7 @@ const AuthPage = (props: Props) => {
           </Link>
           <Link href={"/auth/register"} className="flex-1 flex">
             <Button className="flex-1 bg-black hover:bg-black/80 text-white py-6 font-semibold">
-            Register
+              Register
             </Button>
           </Link>
         </div>

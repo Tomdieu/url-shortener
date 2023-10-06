@@ -19,17 +19,17 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const currentUser = await getCurrentUser();
-  
-  console.log(currentUser);
+
+  // console.log(currentUser);
   return (
     <html lang="en">
       <body className={''}>
         <Toaster />
         <NextTopLoader />
-          <NextUiProvider>
-            {children}
-            {/* <AppProvider></AppProvider> */}
-          </NextUiProvider>
+        <NextUiProvider>
+          {children}
+          {/* <AppProvider></AppProvider> */}
+        </NextUiProvider>
       </body>
     </html>
   );

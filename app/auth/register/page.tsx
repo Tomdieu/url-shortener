@@ -5,15 +5,14 @@ import React from 'react'
 type Props = {}
 
 export const metadata: Metadata = {
-    title: 'Trix Url | Register',
-    description: 'Authenticate',
-    
-  }
+  title: 'Trix Url | Register',
+  description: 'Authenticate',
 
+}
 const RegisterPage = (props: Props) => {
   return (
     <React.Fragment>
-        <RegisterForm/>
+      <RegisterForm />
     </React.Fragment>
   )
 }

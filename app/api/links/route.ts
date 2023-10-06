@@ -3,7 +3,7 @@ import getCurrentUser from "@/lib/getCurrentUser";
 import prisma from "@/lib/prismadb";
 import { validateUrl } from "@/lib/validateUrl";
 import { linkSchema } from "@/schema/link.schema";
-import { CreateLink, LinkType } from "@/types";
+import { CreateLink } from "@/types";
 import { NextRequest } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -43,7 +43,6 @@ export async function POST(req: NextRequest) {
   }
 
   const ownerId: string = user?.id as string;
-  const ipAddress = req.ip;
   var short = "";
 
   if (validateUrl(body.original)) {
