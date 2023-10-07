@@ -16,7 +16,7 @@ export default async function DashboardLayout({
   const currentUser = await getCurrentUser();
 
   return (
-    <div className="h-screen w-screen flex overflow-hidden">
+    <div className="h-screen w-screen flex overflow-hidden font-poppins">
       <div className="hidden h-screen sm:w-4/12 lg:w-2/12 bg-gray-500 sm:flex">
         <Sidebar />
       </div>

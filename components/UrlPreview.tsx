@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useEffect } from "react";
 import { Skeleton } from "./ui/skeleton";
 import { Divider, Card, CardHeader, CardBody, CardFooter } from "@nextui-org/react";

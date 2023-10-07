@@ -26,7 +26,7 @@ export const authOptions: AuthOptions = {
                 email: {
                     label: 'Email',
                     type: 'text',
-                    placeholder: 'supports@trix.com'
+                    placeholder: 'supports@turl.com'
                 },
                 password: {
                     label: 'Password',
@@ -45,13 +45,14 @@ export const authOptions: AuthOptions = {
                     }
                 })
 
-                if (!user || !user?.hashedPassword) {
+                if (!user || !('hashedPassword' in user) || !user.hashedPassword) {
                     throw new Error('Invalid Credentials');
                 }
+                
 
                 // check password match
 
-                const isCorrectPassword = await bcrypt.compare(credentials.password, user.hashedPassword);
+                const isCorrectPassword = await bcrypt.compare(credentials.password, user.hashedPassword as string);
 
                 if (!isCorrectPassword) {
                     throw new Error('Invalid Credentials');

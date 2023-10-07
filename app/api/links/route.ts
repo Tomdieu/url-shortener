@@ -4,12 +4,12 @@ import prisma from "@/lib/prismadb";
 import { validateUrl } from "@/lib/validateUrl";
 import { linkSchema } from "@/schema/link.schema";
 import { CreateLink } from "@/types";
-import { NextRequest } from "next/server";
+import { NextRequest,NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   const user = await getCurrentUser();
   const links = await prisma.link.findMany({ where: { ownerId: user?.id } });
-  return Response.json(links);
+  return NextResponse.json(links);
 }
 
 export async function POST(req: NextRequest) {
@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
   if (!res.success) {
     const { errors } = res.error;
 
-    return Response.json(
+    return NextResponse.json(
       { error: { message: "Invalid Request", errors } },
       { status: 400, headers: { "Content-Type": "application/json" } }
     );
@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
   const user = await getCurrentUser();
 
   if (!user) {
-    return Response.json(
+    return NextResponse.json(
       { error: { message: "User not found" } },
       { status: 404 }
     );
@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
   if (validateUrl(body.original)) {
     short = await generateUniqueShort();
   } else {
-    return Response.json(
+    return NextResponse.json(
       { error: { message: "Invalid URL" } },
       { status: 400 }
     );
@@ -59,5 +59,5 @@ export async function POST(req: NextRequest) {
   const link = await prisma.link.create({
     data: { ...body, ownerId: ownerId, short },
   });
-  return Response.json(link);
+  return NextResponse.json(link);
 }

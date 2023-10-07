@@ -5,7 +5,7 @@ import { Link as LinkType } from "@prisma/client"
 import { ColumnDef } from "@tanstack/react-table"
 import Link from "next/link"
 import { DataTable } from "../DataTable"
-import { InfoIcon, MoreHorizontal, RefreshCcw, Trash2 } from "lucide-react"
+import { Clipboard, InfoIcon, MoreHorizontal, RefreshCcw, Trash2 } from "lucide-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,7 +16,29 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Button } from "../ui/button"
 import { Checkbox } from "../ui/checkbox"
- 
+import { useState } from "react"
+import { toast } from "react-hot-toast";
+
+
+const LinkComponent = ({ link }: { link: string }) => {
+  const [isClipboardVisible, setClipboardVisible] = useState(false);
+
+  return (
+    <div
+      className="flex items-center gap-2 relative"
+      onMouseEnter={() => setClipboardVisible(true)}
+      onMouseLeave={() => setClipboardVisible(false)}
+    >
+      <Link target="_blank" href={link} className="">
+        {link}
+      </Link>
+      <Button onClick={() => navigator.clipboard.writeText(link)} variant="outline" size="icon" className={isClipboardVisible ? "" : "hidden"} >
+        <Clipboard size={16} />
+      </Button>
+    </div>
+  );
+}
+
 
 const columns: ColumnDef<LinkType>[] = [
   {
@@ -39,34 +61,34 @@ const columns: ColumnDef<LinkType>[] = [
     enableHiding: false,
   },
   {
-    accessorKey:"id",
-    header:"Id",
-    cell:({row}) => <div>{row.getValue("id")}</div>
+    accessorKey: "id",
+    header: "Id",
+    cell: ({ row }) => <div>{row.getValue("id")}</div>
   },
   {
-    accessorKey:"original",
-    header:"Original Url",
-    cell:({row})=><Link target="_blank" href={row.getValue("original")}>{row.getValue("original")}</Link>,
-    enableColumnFilter:true,
+    accessorKey: "original",
+    header: "Original Url",
+    cell: ({ row }) => <LinkComponent link={row.getValue("original")} />,
+    enableColumnFilter: true,
     enableSorting: true,
     enableHiding: true,
 
   },
   {
-    accessorKey:"short",
-    header:"Shorten Url",
-    cell:({row})=><Link target="_blank" href={`http://localhost:3000/${row.getValue("short")}`}>http://localhost:3000/{row.getValue("short")}</Link>
+    accessorKey: "short",
+    header: "Shorten Url",
+    cell: ({ row }) => <LinkComponent link={`http://localhost:3000/${row.getValue("short")}`} />
   },
   {
-    accessorKey:"clicks",
-    header:"Numbers Of Clicks",
-    cell:({row})=><div>{(row.getValue("clicks") as []).length}</div>
+    accessorKey: "clicks",
+    header: "Numbers Of Clicks",
+    cell: ({ row }) => <div>{(row.getValue("clicks") as []).length}</div>
   },
   {
-    accessorKey:"createdAt",
-    header:"Created On",
-    cell:({row}) => <div>{(new Date(row.getValue("createdAt"))).toDateString()}</div>,
-    enableColumnFilter:true,
+    accessorKey: "createdAt",
+    header: "Created On",
+    cell: ({ row }) => <div>{(new Date(row.getValue("createdAt"))).toDateString()}</div>,
+    enableColumnFilter: true,
     enableSorting: true,
     enableHiding: true,
   },
@@ -74,7 +96,8 @@ const columns: ColumnDef<LinkType>[] = [
     id: "actions",
     cell: ({ row }) => {
       const short = row.getValue('short')
- 
+      const url = "http://localhost:3000/" + short;
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -86,13 +109,19 @@ const columns: ColumnDef<LinkType>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-             className="flex gap-2 cursor-pointer"
+              className="flex gap-2 cursor-pointer"
+              onClick={() => { navigator.clipboard.writeText(url); toast.success("Link Copied", { position: "top-center" }); }}
             >
-              <InfoIcon size={12}/> Detail
+              <Clipboard size={12} /> Copy
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="flex gap-2 cursor-pointer"
+            >
+              <InfoIcon size={12} /> Detail
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="flex gap-2 cursor-pointer"><RefreshCcw size={14}/>Update</DropdownMenuItem>
-            <DropdownMenuItem className="flex gap-2 bg-red-100 cursor-pointer"><Trash2 size={14} color="red"/>Delete</DropdownMenuItem>
+            <DropdownMenuItem className="flex gap-2 cursor-pointer"><RefreshCcw size={14} />Update</DropdownMenuItem>
+            <DropdownMenuItem className="flex gap-2 bg-red-100 cursor-pointer"><Trash2 size={14} color="red" />Delete</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )

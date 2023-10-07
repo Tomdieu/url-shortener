@@ -1,13 +1,14 @@
 import LinkTables from "@/components/Link/LinkTables";
 import getCurrentUser from "@/lib/getCurrentUser";
 import React from "react";
+import prisma from "@/lib/prismadb";
 
 
 type Props = {};
 
 const fetchUsersLink = async () => {
   const user = await getCurrentUser();
-  const links = await prisma?.link.findMany({ where: { ownerId: user?.id },include:{clicks:true} });
+  const links = await prisma.link.findMany({ where: { ownerId: user?.id },include:{clicks:true} });
 
   return links || [];
 }
