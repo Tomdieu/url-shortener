@@ -1,6 +1,6 @@
-# URL Shortener Web App
+# Trix URL Shortener
 
-![App Screenshot](./public/Screenshot.png)
+[App Screenshot](./public/Screenshot.png)
 
 ## Table of Contents
 

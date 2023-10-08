@@ -21,20 +21,20 @@ import { toast } from "react-hot-toast";
 
 
 const LinkComponent = ({ link }: { link: string }) => {
-  const [isClipboardVisible, setClipboardVisible] = useState(false);
+  // const [isClipboardVisible, setClipboardVisible] = useState(false);
 
   return (
     <div
       className="flex items-center gap-2 relative"
-      onMouseEnter={() => setClipboardVisible(true)}
-      onMouseLeave={() => setClipboardVisible(false)}
+      // onMouseEnter={() => setClipboardVisible(true)}
+      // onMouseLeave={() => setClipboardVisible(false)}
     >
-      <Link target="_blank" href={link} className="">
+      <Link target="_blank" href={link}>
         {link}
       </Link>
-      <Button onClick={() => navigator.clipboard.writeText(link)} variant="outline" size="icon" className={isClipboardVisible ? "" : "hidden"} >
+      {/* <Button onClick={() => navigator.clipboard.writeText(link)} variant="outline" size="icon" className={isClipboardVisible ? "" : "hidden"} >
         <Clipboard size={16} />
-      </Button>
+      </Button> */}
     </div>
   );
 }
