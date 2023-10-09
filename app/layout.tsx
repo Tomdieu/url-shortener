@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     description: "Trix Url is a web app use to shortend long Url",
     authors: [{name: "Tomdieu Ivan", url: "http://github.com/tomdieu"}],
     creator: "Tomdieu Ivan",
-    themeColor: 'black',
+    themeColor: 'ligth',
     metadataBase:new URL('https://trixurl.vercel.app'),
     robots: {
         index: true,
@@ -54,6 +54,14 @@ export const metadata: Metadata = {
         creator: '@tomdieu ivan',
         images: ['https://trixurl.vercel.app/logo.png'],
     },
+    openGraph:{
+        title: 'TrixUrl',
+        description: "Trix Url is a web app use to shortend long Url",
+        images: ['https://trixurl.vercel.app/logo.png'],
+        creators: ['@tomdieu ivan'],
+        url: 'https://trixurl.vercel.app',
+
+    }
 };
 
 export default async function RootLayout({
