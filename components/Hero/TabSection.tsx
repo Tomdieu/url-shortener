@@ -14,7 +14,7 @@ const TabSection = (props: Props) => {
                 <TabsTrigger value="password">Qrcode</TabsTrigger>
             </TabsList>
             <TabsContent value="shorten">
-                <div className="w-full h-[500px] flex-1 flex flex-col gap-1 rounded-lg shadow-lg p-5">
+                <div className="w-full min-h-[600px] flex-1 flex flex-col gap-1 rounded-lg shadow-lg p-5">
                     <h1 className="text-3xl font-semibold mb-4">URL Shortener</h1>
                     <p className="text-gray-600 mb-6">Shorten your long URLs quickly and easily.</p>
 
@@ -40,11 +40,11 @@ const TabSection = (props: Props) => {
                 </div>
             </TabsContent>
             <TabsContent value="password">
-                <div className="flex-1 flex flex-col gap-1">
+                <div className="flex-1 min-h-[600px] flex flex-col gap-1">
                     <h1>Generate Qrcode</h1>
                     <div className="w-[500px] h-[500px]">
 
-                    <Qrcode url={'https://trixurl.vercel.app'} className="min-w-[300px] min-h-[300px]"/>
+                    <Qrcode isDownloadable url={'https://trixurl.vercel.app'} className="min-w-[300px] min-h-[300px] w-full h-full"/>
                         </div>
                 </div>
             </TabsContent>

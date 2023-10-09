@@ -17,7 +17,7 @@ const Hero = (props: Props) => {
 
             </div>
 
-            <div className="w-1/2  p-2 flex h-full bg-blue-300">
+            <div className="w-1/2  p-2 flex h-full">
             <TabSection />
                 </div>
 
