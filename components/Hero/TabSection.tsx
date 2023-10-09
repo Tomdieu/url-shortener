@@ -42,9 +42,9 @@ const TabSection = (props: Props) => {
             <TabsContent value="password">
                 <div className="flex-1 min-h-[600px] flex flex-col gap-1">
                     <h1>Generate Qrcode</h1>
-                    <div className="w-[500px] h-[500px]">
+                    <div className="w-[500px] h-[500px] flex">
 
-                    <Qrcode isDownloadable url={'https://trixurl.vercel.app'} className="min-w-[300px] min-h-[300px] w-full h-full"/>
+                    <Qrcode isDownloadable url={'https://trixurl.vercel.app'} className="w-full h-full"/>
                         </div>
                 </div>
             </TabsContent>

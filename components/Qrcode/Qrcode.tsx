@@ -6,6 +6,7 @@ import QRCode from 'qrcode';
 
 import {cn} from "@/lib/utils"
 import { Button } from '../ui/button';
+import {Download} from "lucide-react"
 
 type QrcodeProps = {
     url:string,
@@ -33,10 +34,10 @@ const Qrcode = ({url,className,containerClassName,buttonClassName,isDownloadable
         }
       };
     return (
-        <div className={cn("flex flex-1 flex-col gap-2",containerClassName)}>
-            <canvas id='canvas' className={cn("flex-1 h-full w-full",className)} style={{ width: '100%' ,height:'100%'}}></canvas>
+        <div className={cn("flex flex-col gap-2",containerClassName)}>
+            <canvas id='canvas' className={cn("",className)} style={{ width: '100%' ,height:'100%'}}></canvas>
             {isDownloadable && (
-                <Button className={cn("h-full w-full py-3",buttonClassName)} onClick={downloadQRCode}>Download QR Code</Button>
+                <Button className={cn("py-3 flex gap-2 items-center",buttonClassName)} onClick={downloadQRCode}>Download QR Code <Download size={16}/></Button>
             )}
         </div>
     )
