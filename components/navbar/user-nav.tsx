@@ -26,15 +26,11 @@ type UserNavProps = {
 export default function UserNav({ user }: UserNavProps) {
     const router = useRouter();
 
-
-    const navigate = (path: string) => {
-        router.push(path)
-    }
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-                    <Avatar className="h-9 w-9">
+                    <Avatar className="h-10 w-10">
                         <AvatarImage src={user?.image as string} alt={user?.name as string} />
                         <AvatarFallback>SC</AvatarFallback>
                     </Avatar>

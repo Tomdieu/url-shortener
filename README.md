@@ -70,7 +70,7 @@ To run the application locally, follow these steps:
 
 ## Technologies Used
 
-- `Next.js`
+- `Next.js 13`
 - `Prisma`
 - `PostgreSQL`
 - `Tailwind CSS`

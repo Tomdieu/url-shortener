@@ -6,3 +6,5 @@ const urlRegex =
 export const linkSchema = z.object({
   original: z.string().regex(urlRegex, "Invalid URL"),
 });
+
+export type LinkType = z.infer<typeof linkSchema>;

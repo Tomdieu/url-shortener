@@ -9,7 +9,7 @@ const TypeWriter = () => {
     <div>
       <Typewriter
         options={{
-          strings:  ["Shorten URLs", "Share Links", "Track Clicks"],
+          strings:  ["Trix Url","Shorten Long Urls", "Share Links", "Track Clicks","Save Usefull Links"],
           autoStart: true,
           loop: true,
         }}

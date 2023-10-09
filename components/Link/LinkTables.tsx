@@ -18,6 +18,7 @@ import { Button } from "../ui/button"
 import { Checkbox } from "../ui/checkbox"
 import { useState } from "react"
 import { toast } from "react-hot-toast";
+import {redirect} from "next/navigation"
 
 
 const LinkComponent = ({ link }: { link: string }) => {
@@ -95,6 +96,7 @@ const columns: ColumnDef<LinkType>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
+      const id = row.getValue('id');
       const short = row.getValue('short')
       const url = "http://localhost:3000/" + short;
 
@@ -110,14 +112,17 @@ const columns: ColumnDef<LinkType>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
               className="flex gap-2 cursor-pointer"
-              onClick={() => { navigator.clipboard.writeText(url); toast.success("Link Copied", { position: "top-center" }); }}
+              onClick={() => { navigator.clipboard.writeText(url).then(r => toast.success("Link Copied", { position: "top-center" })); }}
             >
               <Clipboard size={12} /> Copy
             </DropdownMenuItem>
             <DropdownMenuItem
               className="flex gap-2 cursor-pointer"
             >
+              <Link href={`/dashboard/links/${id}/`} className={"flex items-center justify-between gap-2"} >
               <InfoIcon size={12} /> Detail
+              </Link>
+
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem className="flex gap-2 cursor-pointer"><RefreshCcw size={14} />Update</DropdownMenuItem>

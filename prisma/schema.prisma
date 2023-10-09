@@ -6,29 +6,30 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  // directUrl = env("DIRECT_URL")
 }
 
 model Account {
-  id                String   @id @default(cuid())
-  userId            String
-  type              String?
-  provider          String
-  providerAccountId String
-  refresh_token     String?
-  access_token      String?
-  expires_at        Int?
-  token_type        String?
-  providerType      String?
-  session_state     String?
-  user              User     @relation(fields: [userId], references: [id])
-  scope             String?
+  id                       String   @id @default(cuid())
+  userId                   String
+  type                     String?
+  provider                 String
+  providerAccountId        String
+  refresh_token            String?
+  access_token             String?
+  expires_at               Int?
+  token_type               String?
+  providerType             String?
+  session_state            String?
+  user                     User     @relation(fields: [userId], references: [id])
+  scope                    String?
   refresh_token_expires_in Int?
-id_token           String?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  id_token                 String?
+  createdAt                DateTime @default(now())
+  updatedAt                DateTime @updatedAt
+
   @@unique([provider, providerAccountId])
 }
 

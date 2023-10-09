@@ -35,7 +35,7 @@ const NavBar: React.FC<NavBarProps> = ({ user }) => {
           <Sheet>
             <SheetTrigger asChild>
 
-              <Button isIconOnly className="bg-transparent sm:hidden">
+              <Button aria-label="menu"  isIconOnly className="bg-transparent sm:hidden">
                 <FiMenu className="w-6 h-6" />
               </Button>
             </SheetTrigger>

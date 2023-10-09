@@ -10,4 +10,10 @@ export type CreateLink = {
   original: string;
 };
 
+export type Url = {
+  title:string;
+  description:string;
+  image?:string
+}
+
 export interface LinkType extends Omit<Link, "createAt" | "updatedAt"> {}
