@@ -1,6 +1,7 @@
 import TypeWriter from "@/components/typewriter";
 import { Metadata } from "next";
 import Link from "next/link";
+import React from "react";
 
 type AuthLayoutProps = {
   children: React.ReactNode;
