@@ -19,10 +19,10 @@ const Header = ({user}: HeaderProps) => {
                 {/* <span className='font-black text-3xl font-mono'><span className="text-blue-600">T</span>rix <span className='text-orange-400'>U</span>rl</span> */}
             </div>
             {Boolean(!user) && (<div className="flex item-center gap-2">
-                <Link href="/auth/login">
+                <Link href={"/auth/login"}>
                     <Button className="rounded-full text-white bg-blue-600 hover:bg-blue-300">Login</Button>
                 </Link>
-                <Link href="/auth/register">
+                <Link href={"/auth/register"}>
                     <Button className="rounded-full text-white bg-black/80 hover:bg-black/70">Register</Button>
                 </Link>
             </div>)}

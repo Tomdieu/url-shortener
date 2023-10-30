@@ -1,6 +1,4 @@
 "use client"
-
-import {Link} from "@prisma/client";
 import {Button} from "@/components/ui/button";
 import {Clipboard} from "lucide-react";
 import React from "react";
@@ -9,10 +7,11 @@ import {linkSchema, LinkType} from "@/schema/link.schema";
 import {zodResolver} from "@hookform/resolvers/zod";
 import SubmitButton from "@/components/SubmitButton";
 import {toast} from "react-hot-toast";
+import {Link} from "@/types";
 
 type UpdateUrlProps = {
     baseUrl?: string;
-    url: Link;
+    url?: Link;
     className?: string;
 };
 
@@ -21,6 +20,8 @@ export default function UpdateUrl({
                                       baseUrl = 'http://localhost:3000',
                                       className,
                                   }: UpdateUrlProps) {
+    console.log("Url data")
+    console.log(url)
     const {register, handleSubmit, formState: {errors}} = useForm<LinkType>({
         resolver: zodResolver(linkSchema),
     });
@@ -29,6 +30,7 @@ export default function UpdateUrl({
         console.log(data);
         toast.success("Url updated successfully")
     };
+
 
     return (
         <form
@@ -43,7 +45,7 @@ export default function UpdateUrl({
                 <input
                     id="original"
                     type="url"
-                    value={url.original}
+                    value={url?.original}
                     {...register('original')}
                     className="py-3 px-2 border rounded-md"
                 />
@@ -57,7 +59,7 @@ export default function UpdateUrl({
                     <input
                         disabled={true}
                         className="py-3 px-2 border rounded-md flex-1 text-gray-500"
-                        value={`${baseUrl}/${url.short}`}
+                        value={`${baseUrl}/${url?.short}`}
                     />
                     <Button type="button" className="text-white py-3 h-full bg-black/90">
                         <Clipboard color="#ffffff"/>

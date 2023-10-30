@@ -23,7 +23,11 @@ const RegisterForm = (props: Props) => {
 
   const [isLoading, setIsLoading] = React.useState(false);
 
-  const toggleVisibility = () => setIsVisible(!isVisible);
+  // const toggleVisibility = () => setIsVisible(!isVisible);
+
+  const toggleVisibility = React.useCallback(()=>{
+    setIsVisible(!isVisible);
+  },[isVisible])
 
   const handSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -142,7 +146,7 @@ const RegisterForm = (props: Props) => {
           <Button
             type="button"
             className="w-full hover:bg-black hover:text-white"
-            onClick={() => {signIn("github",{callbackUrl: '/dashboard'} )}}
+            onClick={async () => {await signIn("github",{callbackUrl: '/dashboard'} )}}
           >
             <AiFillGithub />
             <span className="">Github</span>
@@ -158,7 +162,7 @@ const RegisterForm = (props: Props) => {
                     toast.success("Logged in Successfully", {
                       position: "top-center",
                     });
-                    console.log("Login Successfull");
+                    console.log("Login Successfully");
                     router.push("/dashboard");
                   }
 

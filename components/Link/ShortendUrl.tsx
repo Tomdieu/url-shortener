@@ -12,6 +12,7 @@ const UrlShortenerForm: React.FC<UrlShortenerFormProps> = ({}) => {
     const [shortenedUrl, setShortenedUrl] = useState('');
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false)
+    const [isValid,setIsValid] = useState(false);
 
     const {pending} = useFormStatus()
     const router = useRouter()
@@ -21,7 +22,9 @@ const UrlShortenerForm: React.FC<UrlShortenerFormProps> = ({}) => {
         if (!res.success) {
             const {errors} = res.error;
             setError(errors[0].message as string)
+            setIsValid(false)
         } else {
+            setIsValid(true)
             setError(null)
         }
     }
@@ -33,6 +36,7 @@ const UrlShortenerForm: React.FC<UrlShortenerFormProps> = ({}) => {
         if (!res.success) {
             const {errors} = res.error;
             setError(errors[0].message as string)
+            setIsValid(false)
             return;
         } else {
             setLoading(true);
@@ -56,13 +60,13 @@ const UrlShortenerForm: React.FC<UrlShortenerFormProps> = ({}) => {
     };
 
     return (
-        <div className="bg-white p-4 rounded-lg shadow-md">
-            <form method='post' onSubmit={handleSubmit}>
-                <label className="text-gray-600">Enter URL to shorten:</label>
+        <div className="bg-white dark:bg-[#18181B] p-4 rounded-lg shadow-md">
+            <form method='post' onSubmit={handleSubmit} autoComplete={"off"}>
+                <label className="text-gray-600 dark:text-white/80">Enter URL to shorten:</label>
                 <input
                     type="url"
                     name="original"
-                    className="border rounded-md p-2 w-full"
+                    className="border text-base rounded-md p-2 w-full focus:ring outline-none focus:ring-blue-400"
                     placeholder="https://example.com"
                     value={originalUrl}
                     onChange={(e) => {
@@ -78,10 +82,13 @@ const UrlShortenerForm: React.FC<UrlShortenerFormProps> = ({}) => {
                     }}
                     required
                 />
-                {error && (
+                <div className={"my-2"}>
+                    {error && (
 
-                    <span className="block font-bold text-red-400">{error}</span>
-                )}
+                        <span className="block text-xs font-bold text-red-400">{error}</span>
+                    )}
+                    {isValid && (<span className="block text-xs font-bold text-green-500">Valid link</span>)}
+                </div>
                 <button
 
                     aria-disabled={pending}

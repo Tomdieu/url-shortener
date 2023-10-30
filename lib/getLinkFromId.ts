@@ -1,6 +1,6 @@
 import prisma from "@/lib/prismadb";
 
-export async function getLinksFromId(id:number){
+export async function getLinkFromId(id:number){
 
-    return (await prisma.link.findUnique({where: {id}}));
+    return (await  prisma.link.findFirst({where: {id}}));
 }

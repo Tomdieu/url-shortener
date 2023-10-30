@@ -1,5 +1,5 @@
 import prisma from "@/lib/prismadb";
-import { Click, Link } from "@prisma/client";
+import { Click } from "@prisma/client";
 
 interface ClickData {
   timestamp: string;

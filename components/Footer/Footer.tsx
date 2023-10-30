@@ -53,16 +53,16 @@ const Footer = () => {
           </div>
           <div className="flex items-center gap-4 sm:gap-2">
             <Link aria-label="Tomdieu github account" href="https://github.com/Tomdieu">
-            <Button isIconOnly>
+            <Button title="github"  isIconOnly>
               <Github size={16} className="hover:text-blue-500 transition ease-in rounded-sm" />
               </Button>
             </Link>
-            <Link aria-label='Tomdieu Linkein account' href="https://www.linkedin.com/in/TomdieuIvan/">
+            <Link title="linked" aria-label='Tomdieu Linkein account' href="https://www.linkedin.com/in/TomdieuIvan/">
               <Button isIconOnly>
               <Linkedin size={16} className="hover:text-blue-500 transition ease-in rounded-sm" />
               </Button>
             </Link>
-            <Link aria-label='Tomdieu Linkein account' href="mailto:ivantomdio@gmail.com">
+            <Link title="gmail" aria-label='Tomdieu gmail account' href="mailto:ivantomdio@gmail.com">
               <Button isIconOnly>
               <Mail size={16} className="hover:text-blue-500 transition ease-in rounded-sm" />
               

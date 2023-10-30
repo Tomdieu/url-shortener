@@ -17,7 +17,9 @@ export default function AppProvider({ children }: AppProviderTypes) {
       setSession(sess);
     }
 
-    fetchSession();
+    (async ()=>{
+      await fetchSession()
+    })();
   }, []);
 
   return (

@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,ResponsiveContainer } from 'recharts';
 
 import prisma from "@/lib/prismadb";
 import { User } from '@prisma/client';
@@ -19,7 +19,8 @@ const BarChartLinks:React.FC<BarChartLinksProps> = ({chartData}) => {
 
 
     return (
-        <BarChart width={600} height={400} data={data}>
+        <ResponsiveContainer className={"h-full w-full"}>
+        <BarChart data={data}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="url" hide={true} />
             <YAxis />
@@ -27,6 +28,7 @@ const BarChartLinks:React.FC<BarChartLinksProps> = ({chartData}) => {
             <Legend />
             <Bar dataKey="clicks" fill="#8884d8" />
         </BarChart>
+        </ResponsiveContainer>
     );
 };
 

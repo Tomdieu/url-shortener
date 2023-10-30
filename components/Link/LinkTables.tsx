@@ -30,7 +30,7 @@ const LinkComponent = ({ link }: { link: string }) => {
       // onMouseEnter={() => setClipboardVisible(true)}
       // onMouseLeave={() => setClipboardVisible(false)}
     >
-      <Link target="_blank" href={link}>
+      <Link target="_blank" href={link} className={"text-sm"}>
         {link}
       </Link>
       {/* <Button onClick={() => navigator.clipboard.writeText(link)} variant="outline" size="icon" className={isClipboardVisible ? "" : "hidden"} >
@@ -88,7 +88,7 @@ const columns: ColumnDef<LinkType>[] = [
   {
     accessorKey: "createdAt",
     header: "Created On",
-    cell: ({ row }) => <div>{(new Date(row.getValue("createdAt"))).toDateString()}</div>,
+    cell: ({ row }) => <div className={"text-sm"}>{(new Date(row.getValue("createdAt"))).toDateString()}</div>,
     enableColumnFilter: true,
     enableSorting: true,
     enableHiding: true,
@@ -98,7 +98,7 @@ const columns: ColumnDef<LinkType>[] = [
     cell: ({ row }) => {
       const id = row.getValue('id');
       const short = row.getValue('short')
-      const url = "http://localhost:3000/" + short;
+      const url = "/" + short;
 
       return (
         <DropdownMenu>
@@ -119,14 +119,14 @@ const columns: ColumnDef<LinkType>[] = [
             <DropdownMenuItem
               className="flex gap-2 cursor-pointer"
             >
-              <Link href={`/dashboard/links/${id}/`} className={"flex items-center justify-between gap-2"} >
+              <Link href={`/dashboard/links/${short}/`} className={"flex items-center justify-between gap-2"} >
               <InfoIcon size={12} /> Detail
               </Link>
 
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem className="flex gap-2 cursor-pointer"><RefreshCcw size={14} />Update</DropdownMenuItem>
-            <DropdownMenuItem className="flex gap-2 bg-red-100 cursor-pointer"><Trash2 size={14} color="red" />Delete</DropdownMenuItem>
+            <DropdownMenuItem className="flex gap-2 bg-red-100 cursor-pointer dark:bg-transparent"><Trash2 size={14} color={"red"} />Delete</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )

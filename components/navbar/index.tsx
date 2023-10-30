@@ -2,23 +2,10 @@
 import { User } from "@prisma/client";
 import React from "react";
 import {
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownItem,
-  DropdownSection,
-  Avatar,
   Button,
 } from "@nextui-org/react";
-import { FiMenu, FiSettings, FiLogOut } from "react-icons/fi";
-import { Menubar, MenubarContent, MenubarItem, MenubarTrigger } from "../ui/menubar";
-import {
-  Link1Icon,
-  Link2Icon,
-} from "@radix-ui/react-icons";
+import { FiMenu} from "react-icons/fi";
 
-import { signOut } from "next-auth/react";
-import { MenubarMenu } from "@radix-ui/react-menubar";
 import UserNav from "./user-nav";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import Sidebar from "../sidebar";
@@ -29,12 +16,11 @@ type NavBarProps = {
 
 const NavBar: React.FC<NavBarProps> = ({ user }) => {
   return (
-    <div className="sticky top-0 z-50 bg-white bg-opacity-40 backdrop-blur-md shadow-lg py-2 md:py-3 border-b-1 px-4 w-full z-99">
+    <div className="dark:bg-[#18181B] dark:text-white dark:border-b-white/20 sticky top-0 z-50 bg-white bg-opacity-40 backdrop-blur-md shadow-lg py-2 md:py-3 border-b-1 px-4 w-full z-99">
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-1">
           <Sheet>
             <SheetTrigger asChild>
-
               <Button aria-label="menu"  isIconOnly className="bg-transparent sm:hidden">
                 <FiMenu className="w-6 h-6" />
               </Button>

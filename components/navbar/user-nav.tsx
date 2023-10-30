@@ -1,3 +1,4 @@
+"use client"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -36,7 +37,7 @@ export default function UserNav({ user }: UserNavProps) {
                     </Avatar>
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56" align="end" forceMount>
+            <DropdownMenuContent className="w-56 text-black dark:text-white" align="end" forceMount>
                 <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
                         <p className="text-sm font-medium leading-none">{user?.name}</p>
@@ -48,19 +49,19 @@ export default function UserNav({ user }: UserNavProps) {
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                     <DropdownMenuItem onClick={() => router.push("/dashboard/links")} className="flex gap-2">
-                        <Link2 size={16} className="text-black" />
+                        <Link2 size={16} className="text-black dark:text-white"/>
                         Links
                         <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
                     </DropdownMenuItem>
 
                     <DropdownMenuItem className="flex gap-2" onClick={() => router.push("/dashboard/shorten")}>
-                        <LinkIcon size={16} className="text-black" />
+                        <LinkIcon size={16} className="text-black dark:text-white" />
                         Shorten URL
                         <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
                     </DropdownMenuItem>
 
                     <DropdownMenuItem className="flex gap-2">
-                        <Settings size={16} className="text-black" />
+                        <Settings size={16} className="text-black dark:text-white" />
                         Settings
                         <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
                     </DropdownMenuItem>
