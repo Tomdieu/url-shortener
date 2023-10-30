@@ -8,8 +8,12 @@ import { NextRequest,NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   const user = await getCurrentUser();
-  const links = await prisma.link.findMany({ where: { ownerId: user?.id } });
-  return NextResponse.json(links);
+  if(user){
+    console.log("User : "+user.name)
+    const links = await prisma.link.findMany({ where: { ownerId: user?.id },include:{clicks:true }});
+    return NextResponse.json(links);
+  }
+  return  NextResponse.json({"error":"Sorry you need to be authenticated"},{status:401})
 }
 
 export async function POST(req: NextRequest) {
@@ -37,7 +41,7 @@ export async function POST(req: NextRequest) {
     const short = generateShortCode();
     const link = await prisma.link.findFirst({ where: { short: short } });
     if (link) {
-      generateUniqueShort();
+      await generateUniqueShort();
     }
     return short;
   }
