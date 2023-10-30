@@ -28,8 +28,8 @@ const Dashboard = async (props: Props) => {
       <div className="flex items-center justify-between my-3">
         <h5 className="font-extrabold text-xl md:text-3xl">Dashboard</h5>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
-        <div className="border p-5 py-7 rounded-md flex gap-2 flex-col shadow-md cursor-pointer">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
+        <div className="border dark:border-white/20 p-5 py-7 rounded-md flex gap-2 flex-col shadow-md cursor-pointer">
           <div className="flex items-center justify-between">
             <h5 className="font-bold text-medium">
               Total numbers of shortened links
@@ -41,7 +41,7 @@ const Dashboard = async (props: Props) => {
             +50% from the last month
           </span> */}
         </div>
-        <div className="border p-5 rounded-md flex gap-2 flex-col shadow-md cursor-pointer">
+        <div className="border dark:border-white/20 p-5 rounded-md flex gap-2 flex-col shadow-md cursor-pointer">
           <div className="flex items-center justify-between">
             <h5 className="font-bold text-medium">Total number of clicks</h5>
             <FiMousePointer />
@@ -51,14 +51,14 @@ const Dashboard = async (props: Props) => {
             +50% from the last month
           </span> */}
         </div>
-        <div className="border p-5 rounded-md flex gap-2 flex-col shadow-md cursor-pointer">
+        <div className="border dark:border-white/20 p-5 rounded-md flex gap-2 flex-col shadow-md cursor-pointer">
           <div className="flex items-center justify-between">
             <h5 className="font-bold text-medium">
               Average click-through rate
             </h5>
             <MousePointerClick size={16} />
           </div>
-          <h5 className="font-bold text-xl">{averageClickRate} %</h5>
+          <h5 className="font-bold text-xl">{averageClickRate.toFixed(2)} %</h5>
           {/* <span className="block text-gray-400 text-sm">
             +30% from the last month
           </span> */}
@@ -67,7 +67,8 @@ const Dashboard = async (props: Props) => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 my-2">
         <TopShortenUrl shortenedUrls={topShortendUrls}/>
       </div>
-      <BarChartLinks chartData={chartLinkData}/>
+      {chartLinkData && <BarChartLinks chartData={chartLinkData}/>}
+
 
       
     </div>
