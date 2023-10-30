@@ -5,6 +5,8 @@ import NextTopLoader from "nextjs-toploader";
 import {Toaster} from "react-hot-toast";
 import localFont from 'next/font/local'
 import React from "react";
+import NextThemeProvider from "@/providers/NextThemeProvider";
+import ReactQueryProvider from "@/providers/ReactQueryProvider";
 
 const poppins = localFont({
     src: [
@@ -26,11 +28,11 @@ const poppins = localFont({
 
 export const metadata: Metadata = {
     title: "URL Shortener | Trix Url",
-    description: "Trix Url is a web app use to shortend long Url",
-    authors: [{name: "Tomdieu Ivan", url: "http://github.com/tomdieu"}],
+    description: "Trix Url is a web app use to shortened long Url",
+    authors: [{name: "Tomdieu Ivan", url: "https://github.com/tomdieu"}],
     creator: "Tomdieu Ivan",
-    themeColor: 'ligth',
-    metadataBase:new URL('https://trixurl.vercel.app'),
+    themeColor: 'light',
+    metadataBase: new URL('https://trixurl.vercel.app'),
     robots: {
         index: true,
         follow: true,
@@ -54,7 +56,7 @@ export const metadata: Metadata = {
         creator: '@tomdieu ivan',
         images: ['https://trixurl.vercel.app/logo.png'],
     },
-    openGraph:{
+    openGraph: {
         title: 'TrixUrl',
         description: "Trix Url is a web app use to shortend long Url",
         images: ['https://trixurl.vercel.app/logo.png'],
@@ -64,20 +66,27 @@ export const metadata: Metadata = {
     }
 };
 
+
 export default async function RootLayout({
                                              children,
                                          }: {
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en" className={`${poppins.variable} font-sans`}>
+        <html lang="en" className={`${poppins.variable}`} suppressHydrationWarning={true}>
+
         <body>
         <Toaster/>
-        <NextTopLoader/>
-        <NextUiProvider>
-            {children}
-        </NextUiProvider>
+        <NextTopLoader showSpinner={false}/>
+        <NextThemeProvider>
+            <NextUiProvider>
+                <ReactQueryProvider>
+                    {children}
+                </ReactQueryProvider>
+            </NextUiProvider>
+        </NextThemeProvider>
         </body>
+
         </html>
     );
 }
