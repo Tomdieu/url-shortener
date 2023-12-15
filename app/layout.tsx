@@ -31,7 +31,6 @@ export const metadata: Metadata = {
     description: "Trix Url is a web app use to shortened long Url",
     authors: [{name: "Tomdieu Ivan", url: "https://github.com/tomdieu"}],
     creator: "Tomdieu Ivan",
-    themeColor: 'light',
     metadataBase: new URL('https://trixurl.vercel.app'),
     robots: {
         index: true,

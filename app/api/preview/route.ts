@@ -15,7 +15,6 @@ export async function GET(req: NextRequest) {
         const image = root.querySelector('meta[property="og:image"]')?.getAttribute('content') || '';
         return new Response(JSON.stringify({ title, description, image }))
     } catch (err) {
-        console.log(err);
         return new Response(JSON.stringify({ error: "Error occur !" }))
     }
 }

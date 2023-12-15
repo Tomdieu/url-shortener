@@ -2,8 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,ResponsiveContainer } from 'recharts';
 
-import prisma from "@/lib/prismadb";
-import { User } from '@prisma/client';
+import {cn} from "@/lib/utils";
 
 interface ChartData {
     url: string;
@@ -11,22 +10,24 @@ interface ChartData {
 }
 
 type BarChartLinksProps = {
-    chartData: ChartData[]
+    chartData: ChartData[],
+    fillColor?:string,
+    className?:string
 }
 
-const BarChartLinks:React.FC<BarChartLinksProps> = ({chartData}) => {
+const BarChartLinks:React.FC<BarChartLinksProps> = ({chartData,fillColor,className}) => {
     const [data, setData] = useState<ChartData[]>(chartData);
 
 
     return (
-        <ResponsiveContainer className={"h-full w-full"}>
+        <ResponsiveContainer className={cn("h-full w-full",className)}>
         <BarChart data={data}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="url" hide={true} />
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="clicks" fill="#8884d8" />
+            <Bar dataKey="clicks" fill={fillColor ? fillColor : "#8884d8"} />
         </BarChart>
         </ResponsiveContainer>
     );

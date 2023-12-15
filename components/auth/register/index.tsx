@@ -156,18 +156,16 @@ const RegisterForm = (props: Props) => {
             onClick={() => {
               signIn("google", { callbackUrl: "/dashboard" }).then(
                 (callback) => {
-                  console.log(callback);
+
                   if (callback?.ok) {
                     router.refresh();
                     toast.success("Logged in Successfully", {
                       position: "top-center",
                     });
-                    console.log("Login Successfully");
                     router.push("/dashboard");
                   }
 
                   if (callback?.error) {
-                    console.log(callback.error);
                     toast.error("Error : " + callback.error);
                   }
                 } 

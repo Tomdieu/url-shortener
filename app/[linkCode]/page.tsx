@@ -1,7 +1,8 @@
-// import LinkChart from '@/components/LinkChart';
-import { getLinkChartDetail } from '@/lib/getLinkChartDetail';
+"use client"
+
 import { Link } from '@prisma/client';
 import { redirect } from 'next/navigation';
+import {useQuery} from "@tanstack/react-query";
 
 type Props = {
   params: { linkCode: string }
@@ -9,8 +10,8 @@ type Props = {
 
 const fetchLink = (shortCode: string): Promise<Link> => {
   return new Promise((resolve, reject) => {
-    fetch(process.env.URL + `/api/links/${shortCode}`,{cache:'no-cache'})
-      .then((res) => res.json())
+    fetch(`/api/links/${shortCode}`,{cache:"force-cache"})
+      .then((res) => res.json() as unknown as Link)
       .then((data) => {
         resolve(data);
       })
@@ -21,18 +22,25 @@ const fetchLink = (shortCode: string): Promise<Link> => {
 };
 
 
-const LinkDetail = async ({ params }: Props) => {
-  const linkDetail = await fetchLink(params.linkCode);
-  if(linkDetail){
-    redirect(linkDetail.original);
-  }  
+const LinkDetail =  ({ params }: Props) => {
+
+
+  const {data,isLoading} = useQuery({
+    queryKey:["link-preview",params.linkCode],
+    queryFn:()=>{
+      return  fetchLink(params.linkCode);
+    },
+  })
+
+  if(isLoading){
+    return <div>Loading...</div>
+  }
+  if(data){
+    // return data.original
+    return redirect(data.original)
+
+  }
 }
 
-// const data = await getLinkChartDetail(params.linkCode,"day");
-  // if(data){
-
-  //   return <LinkChart type="bar" clickDatas={data || []} />
-  // }
-  // return null
 
 export default LinkDetail;

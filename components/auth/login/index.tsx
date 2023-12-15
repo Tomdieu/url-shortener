@@ -48,7 +48,6 @@ const LoginForm = (props: Props) => {
         }
 
         if (callback?.error) {
-          console.log(callback.error);
           toast.error("Error : " + callback.error);
         }
       }
@@ -155,7 +154,6 @@ const LoginForm = (props: Props) => {
                   }
 
                   if (callback?.error) {
-                    console.log(callback.error);
                     toast.error("Error : " + callback.error);
                   }
                 }

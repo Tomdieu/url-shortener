@@ -5,10 +5,9 @@ import getCurrentUser from '@/lib/getCurrentUser'
 export default async function Home() {
   const user = await getCurrentUser();
   return (
-    <div className="bg-white min-h-screen flex  flex-col">
+    <div className="bg-white min-h-screen flex flex-col">
       <Header user={user}/>
       <Hero/>
-      
       <Footer/>
     </div>
   )
