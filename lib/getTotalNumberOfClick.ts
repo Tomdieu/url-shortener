@@ -1,3 +1,4 @@
+"use server"
 import prisma from "./prismadb";
 
 export const getTotalNumberOfClick = async (ownerId: string) => {
