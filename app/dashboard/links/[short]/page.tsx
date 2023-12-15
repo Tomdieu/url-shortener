@@ -77,6 +77,8 @@ const LinkDetail = async ({params, searchParams}: Props) => {
     const yearDetail = await getLinkChartDetail(short,"year");
 
 
+    console.log({link})
+
 
 
     return (
@@ -87,7 +89,7 @@ const LinkDetail = async ({params, searchParams}: Props) => {
                     <div className="flex items-center text-sm gap-2">
                         <a className="font-medium" href={process.env.URL+"/"+short} target="_blank">
                             {/* <HoverLink url={process.env.URL+"/"+short}/> */}
-                            <HoverLink url={link?.original}/>
+                            <HoverLink url={link?.data.original}/>
 
 
                         </a>
