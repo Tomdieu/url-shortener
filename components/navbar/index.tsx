@@ -25,7 +25,7 @@ const NavBar: React.FC<NavBarProps> = ({ user }) => {
                 <FiMenu className="w-6 h-6" />
               </Button>
             </SheetTrigger>
-            <SheetContent   side={'left'} className="p-0">
+            <SheetContent side={'left'} className="p-0">
               <Sidebar />
             </SheetContent>
           </Sheet>
@@ -35,6 +35,7 @@ const NavBar: React.FC<NavBarProps> = ({ user }) => {
         </div>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
+
             {user && <UserNav user={user} />}
           </div>
         </div>
