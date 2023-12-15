@@ -39,6 +39,7 @@ export default function HoverLink({url}:HoverLinkProps){
                                 className="object-cover rounded-xl"
                                 src={data?.og.image}
                                 width={270}
+                                
                             />
                         </CardBody>
                         <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">

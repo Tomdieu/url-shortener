@@ -10,7 +10,7 @@ type Props = {
 
 const fetchLink = (shortCode: string): Promise<Link> => {
   return new Promise((resolve, reject) => {
-    fetch(`/api/links/${shortCode}`,{cache:"force-cache"})
+    fetch(`/api/links/${shortCode}`)
       .then((res) => res.json() as unknown as Link)
       .then((data) => {
         resolve(data);
@@ -32,14 +32,16 @@ const LinkDetail =  ({ params }: Props) => {
     },
   })
 
+  console.log({data})
+
   if(isLoading){
     return <div>Loading...</div>
   }
-  if(data){
-    // return data.original
-    return redirect(data.original)
+  // if(data){
+  //   // return data.original
+  //   return redirect(data.original)
 
-  }
+  // }
 }
 
 

@@ -8,6 +8,8 @@ export async function GET(req: NextRequest, { params }: { params: Record<string,
   try {
     const user = await getCurrentUser();
     const ipAddress = req.ip;
+    const referringUrl = req.get('Referrer') || 'Direct Visit';
+  console.log(`Referring URL: ${referringUrl}`);
     const link = await prisma.link.findFirst({ where: { short: id } });
     // we are going to increment the link click if if exists and the owner of that url is not the one accessing it
     if (link) {
