@@ -1,8 +1,8 @@
 "use client"
-import {ButtonProps} from "@/components/ui/button";
+import {Button, ButtonProps} from "@/components/ui/button";
 import {cn} from "@/lib/utils";
 
-import { experimental_useFormStatus as useFormStatus } from 'react-dom'
+import {useFormStatus} from 'react-dom'
 
 type SubmitButtonProps = {
     className?: string;
@@ -10,10 +10,11 @@ type SubmitButtonProps = {
 } & ButtonProps;
 
 export default function SubmitButton(props: SubmitButtonProps) {
-    const { pending } = useFormStatus()
+    const {pending} = useFormStatus()
     const {isLoading, disabled, className, children, ...others} = props;
 
-    return <SubmitButton aria-disabled={pending} disabled={isLoading || disabled} className={cn("flex gap-2", className)} {...others}>
+    return <Button aria-disabled={pending} disabled={isLoading || disabled}
+                   className={cn("flex gap-2", className)} {...others}>
         {(isLoading || pending) && (
             <svg aria-hidden="true"
                  className="inline w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-gray-600 dark:fill-gray-300"
@@ -26,7 +27,6 @@ export default function SubmitButton(props: SubmitButtonProps) {
                     fill="currentFill"/>
             </svg>
         )}
-
         {children}
-    </SubmitButton>
+    </Button>
 }
