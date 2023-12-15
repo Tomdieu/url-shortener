@@ -6,10 +6,29 @@ import React from 'react';
 import { Button } from '@nextui-org/react'
 
 
+const socialMediaLinks = [
+  {
+    label: 'Tomdieu github account',
+    href: 'https://github.com/Tomdieu',
+    icon: <Github className="hover:text-blue-500 transition ease-in rounded-sm w-5 h-5" />,
+  },
+  {
+    label: 'Tomdieu Linkedin account',
+    href: 'https://www.linkedin.com/in/TomdieuIvan/',
+    icon: <Linkedin className="hover:text-blue-500 transition ease-in rounded-sm" />,
+  },
+  {
+    label: 'Tomdieu gmail account',
+    href: 'mailto:ivantomdio@gmail.com',
+    icon: <Mail className="hover:text-blue-500 transition ease-in rounded-sm" />,
+  },
+];
+
+
 const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white">
-      <div className="py-8 px-4">
+    <footer className="border-t">
+      <div className="py-8 px-4 container">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="flex flex-col md:flex-row">
             <Image src={"/logo-white.png"} width={500} height={500} alt='Trix Url' className='w-20 h-20' />
@@ -31,43 +50,12 @@ const Footer = () => {
             </p>
           </div>
 
-          <div>
-            <h2 className="text-xl font-bold mb-4">Links</h2>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <a href="#" className="text-gray-400 hover:text-white">
-                  Home
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-white">
-                  About
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-white">
-                  Contact
-                </a>
-              </li>
-            </ul>
-          </div>
           <div className="flex items-center gap-4 sm:gap-2">
-            <Link aria-label="Tomdieu github account" href="https://github.com/Tomdieu">
-            <Button title="github"  isIconOnly>
-              <Github size={16} className="hover:text-blue-500 transition ease-in rounded-sm" />
-              </Button>
-            </Link>
-            <Link title="linked" aria-label='Tomdieu Linkein account' href="https://www.linkedin.com/in/TomdieuIvan/">
-              <Button isIconOnly>
-              <Linkedin size={16} className="hover:text-blue-500 transition ease-in rounded-sm" />
-              </Button>
-            </Link>
-            <Link title="gmail" aria-label='Tomdieu gmail account' href="mailto:ivantomdio@gmail.com">
-              <Button isIconOnly>
-              <Mail size={16} className="hover:text-blue-500 transition ease-in rounded-sm" />
-              
-              </Button>
-            </Link>
+          {socialMediaLinks.map((link, index) => (
+        <Link key={index} aria-label={link.label} href={link.href}>
+          {link.icon}
+        </Link>
+      ))}
           </div>
         </div>
 
@@ -77,6 +65,7 @@ const Footer = () => {
             <a href="/" className="font-bold">Trix Url</a>
             <div className="w-0.5 my-1 h-3 mx-0.5 bg-gray-400"></div>
             <span>Tomdieu Ivan</span>
+            <span>. All rights reserved.</span>
           </p>
           
         </div>
