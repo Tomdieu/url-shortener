@@ -4,7 +4,7 @@ import { NextRequest,NextResponse } from "next/server";
 import prisma from "@/lib/prismadb";
 export async function GET(req: NextRequest, { params }: { params: Record<string, string> }) {
   const id = params.id;
-
+  console.log(req.ip,req.geo)
   try {
     const user = await getCurrentUser();
     const ipAddress = req.ip;

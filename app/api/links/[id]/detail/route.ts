@@ -13,7 +13,6 @@ export async function GET(req:NextRequest,{params}:{params:Record<string,string>
 
 
     const chartLink = await getLinkChartDetail(short,filterBy,startDate,endDate);
-    console.log("Chart Link : ",chartLink)
     return NextResponse.json(chartLink);
 
 }
