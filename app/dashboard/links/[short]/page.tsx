@@ -89,7 +89,7 @@ const LinkDetail = async ({params, searchParams}: Props) => {
                     <div className="flex items-center text-sm gap-2">
                         <a className="font-medium" href={process.env.URL+"/"+short} target="_blank">
                             {/* <HoverLink url={process.env.URL+"/"+short}/> */}
-                            <HoverLink url={link?.data.original!}/>
+                            <HoverLink url={link?.data?.original!}/>
                         </a>
                         <Separator className="h-5" orientation="vertical" />
                         <Badge className="font-semibold" variant="secondary">
