@@ -19,23 +19,19 @@ import { Checkbox } from "../ui/checkbox"
 import { useState } from "react"
 import { toast } from "react-hot-toast";
 import {redirect} from "next/navigation"
+import HoverLink from "@/components/Link/HoverLink";
 
 
 const LinkComponent = ({ link }: { link: string }) => {
-  // const [isClipboardVisible, setClipboardVisible] = useState(false);
 
   return (
     <div
-      className="flex items-center gap-2 relative"
-      // onMouseEnter={() => setClipboardVisible(true)}
-      // onMouseLeave={() => setClipboardVisible(false)}
+      className="flex items-center gap-2 relative overflow-hidden max-w-sm"
     >
-      <Link target="_blank" href={link} className={"text-sm"}>
-        {link}
+      <Link target="_blank" href={link} className={"text-sm truncate overflow-hidden font-poppins"}>
+        <HoverLink url={link} />
+        {/*{link}*/}
       </Link>
-      {/* <Button onClick={() => navigator.clipboard.writeText(link)} variant="outline" size="icon" className={isClipboardVisible ? "" : "hidden"} >
-        <Clipboard size={16} />
-      </Button> */}
     </div>
   );
 }
@@ -78,7 +74,7 @@ const columns: ColumnDef<LinkType>[] = [
   {
     accessorKey: "short",
     header: "Shorten Url",
-    cell: ({ row }) => <LinkComponent link={`http://localhost:3000/${row.getValue("short")}`} />
+    cell: ({ row }) => <LinkComponent link={`${process.env.NEXT_PUBLIC_URL}/${row.getValue("short")}`} />
   },
   {
     accessorKey: "clicks",
@@ -98,7 +94,7 @@ const columns: ColumnDef<LinkType>[] = [
     cell: ({ row }) => {
       const id = row.getValue('id');
       const short = row.getValue('short')
-      const url = "/" + short;
+      const url = process.env.NEXT_PUBLIC_URL+ "/" + short;
 
       return (
         <DropdownMenu>

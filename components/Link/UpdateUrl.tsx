@@ -1,76 +1,82 @@
 "use client"
-import {Button} from "@/components/ui/button";
-import {Clipboard} from "lucide-react";
-import React from "react";
-import {SubmitHandler, useForm} from "react-hook-form";
+import {Link} from "@prisma/client"
+import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,} from "@/components/ui/card"
+
+import {Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form"
+
+import {Input} from "@/components/ui/input"
+import {useForm} from "react-hook-form";
 import {linkSchema, LinkType} from "@/schema/link.schema";
 import {zodResolver} from "@hookform/resolvers/zod";
-import SubmitButton from "@/components/SubmitButton";
 import {toast} from "react-hot-toast";
-import {Link} from "@/types";
+import {update} from "@/lib/actions/links";
+import SubmitButton from "@/components/SubmitButton";
+import {useRouter}  from "next/navigation";
+
 
 type UpdateUrlProps = {
-    baseUrl?: string;
-    url?: Link;
-    className?: string;
-};
+    link: Link
+}
 
-export default function UpdateUrl({
-                                      url,
-                                      baseUrl = 'http://localhost:3000',
-                                      className,
-                                  }: UpdateUrlProps) {
-    console.log("Url data")
-    console.log(url)
-    const {register, handleSubmit, formState: {errors}} = useForm<LinkType>({
-        resolver: zodResolver(linkSchema),
-    });
+export default function UpdateUrl({link}: UpdateUrlProps) {
 
-    const onSubmit: SubmitHandler<LinkType> = (data) => {
-        console.log(data);
-        toast.success("Url updated successfully")
-    };
+    const router = useRouter()
 
+    const form = useForm<LinkType>({
+        resolver: zodResolver(linkSchema), defaultValues: {
+            original: link.original
+        }, mode: "onBlur"
+    })
+
+    const onSubmit = async (value: LinkType) => {
+
+        toast.success("Url Updated")
+        const url = await update(link.short, value);
+        if (url?.success) {
+            toast.success("Link Updated")
+            setTimeout(()=>{
+                router.refresh()
+            },1000)
+        }
+    }
 
     return (
-        <form
-            method="post"
-            onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-2 bg-white shadow p-2 border rounded-md"
-        >
-            <div className="flex gap-1 flex-col">
-                <label htmlFor="original" className="font-bold text-xl">
-                    Original Url
-                </label>
-                <input
-                    id="original"
-                    type="url"
-                    value={url?.original}
-                    {...register('original')}
-                    className="py-3 px-2 border rounded-md"
-                />
-                {errors.original?.message && (
-                    <p className={"font-bold text-red-300"}>{errors.original?.message}</p>
-                )}
-            </div>
-            <div className="flex gap-1 flex-col">
-                <label className="font-bold text-xl">Shorten Url</label>
-                <div className="flex items-center justify-between flex-1 gap-1">
-                    <input
-                        disabled={true}
-                        className="py-3 px-2 border rounded-md flex-1 text-gray-500"
-                        value={`${baseUrl}/${url?.short}`}
-                    />
-                    <Button type="button" className="text-white py-3 h-full bg-black/90">
-                        <Clipboard color="#ffffff"/>
-                    </Button>
-                </div>
-            </div>
-            <div className="flex gap-1 flex-col">
-                <SubmitButton type="submit" className="py-6 px-2 font-bold text-xl">
-                    Update Url
-                </SubmitButton>
-            </div>
-        </form>
-    );
+        <Form {...form}>
+            <form autoCorrect={"off"} onSubmit={form.handleSubmit(onSubmit)} className={"space-y-8 font-poppins flex-1"}>
+                <Card className={"rounded-sm"}>
+                    <CardHeader>
+                        <CardTitle>Update The Url</CardTitle>
+                        <CardDescription className={"font-poppins"}>Fill the information&apos;s below</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <FormField control={form.control} render={({field}) => (
+                            <FormItem>
+                                <FormLabel>Original</FormLabel>
+                                <FormControl>
+                                    <Input autoCorrect={"off"} type={"url"} placeholder={"Enter a valid url"} {...field}/>
+                                </FormControl>
+                                <FormDescription>
+                                    Please Provide a valid url
+                                </FormDescription>
+                                <FormMessage className={"font-poppins"}/>
+                            </FormItem>
+                        )} name={"original"}/>
+                        <FormItem>
+                            <FormLabel>Shortend</FormLabel>
+                            <FormControl>
+                                <div className={"flex items-center"}>
+                                    <Input className={"w-3/4 border-none"} value={process.env.NEXT_PUBLIC_URL+"/"} disabled onChange={()=>{}}/>
+                                    <Input className={"w-1/4"} onChange={()=>{}} value={link.short}/>
+                                </div>
+
+                            </FormControl>
+                        </FormItem>
+                    </CardContent>
+                    <CardFooter>
+                        <SubmitButton className={"w-full"} type={"submit"}>Update</SubmitButton>
+                    </CardFooter>
+                </Card>
+            </form>
+        </Form>
+    )
 }
