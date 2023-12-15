@@ -3,6 +3,7 @@ import Sidebar from "@/components/sidebar";
 import getCurrentUser from "@/lib/getCurrentUser";
 import { Metadata } from "next";
 import React from "react";
+import DashboardBreadCumb from "@/components/DashboardBreadCumb";
 
 export const metadata: Metadata = {
   title: "Trix Url | Dashboard",
@@ -24,7 +25,10 @@ export default async function DashboardLayout({
       <div className="flex flex-1 w-full sm:w-8/12 md:w-8/12 xl:w-10/12 transition ease-linear overflow-hidden">
         <div className="w-full rounded-none flex flex-col flex-1 overflow-y-auto dark:bg-[#18181B]">
           <NavBar user={currentUser} />
-          <div className="flex-1 px-3 w-full dark:bg-[#18181B]">{children}</div>
+          <div className="flex-1 px-3 w-full dark:bg-[#18181B]">
+              <DashboardBreadCumb/>
+              {children}
+          </div>
         </div>
       </div>
     </div>
