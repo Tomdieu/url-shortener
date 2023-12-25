@@ -77,7 +77,7 @@ const RegisterForm = (props: Props) => {
         >
           <div>
             <h5 className="text-center font-bold">Create an account </h5>
-            <span className="text-current font-light text-xs text-gray-600 text-center block">
+            <span className="text-current font-light text-xs text-gray-600 text-center block text">
               Fill the form below
             </span>
           </div>
