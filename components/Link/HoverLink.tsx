@@ -20,7 +20,7 @@ export default function HoverLink({url}:HoverLinkProps){
     })
 
 
-    console.log(data)
+    // console.log(data)
 
 
     return (
@@ -43,9 +43,9 @@ export default function HoverLink({url}:HoverLinkProps){
                             />
                         </CardBody>
                         <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-                            <p className="text-tiny uppercase font-bold">{data?.og.title}</p>
-                            <small className="text-default-500">{data?.og.description}</small>
-                            <h4 className="font-light text-xs text">{url}</h4>
+                            <p className="text-tiny uppercase font-bold truncate">{data?.og.title}</p>
+                            <small className="text-default-500 truncate">{data?.og.description}</small>
+                            <h4 className="font-light text-xs text truncate">{url}</h4>
                         </CardHeader>
 
                     </Card>
