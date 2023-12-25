@@ -58,13 +58,13 @@ const LoginForm = (props: Props) => {
     <div className="flex-1 flex flex-col h-full">
       <div className="p-3">
         <Link href="/">
-          <h5 className="sm:hidden font-bold cursor-pointer select-none">
+          <h5 className="sm:hidden font-bold cursor-pointer select-none text">
             Trix Url
           </h5>
         </Link>
       </div>
       <div className="p-3 sm:px-1 lg:px-5 w-full flex-1 h-fullitems-center justify-center flex flex-col">
-        <h1 className="text-3xl font-bold text-center my-5">Welcome back</h1>
+        <h1 className="text-3xl font-bold text-center my-5 text">Welcome back</h1>
         <form
           onSubmit={handleSubmit}
           action=""
@@ -73,7 +73,7 @@ const LoginForm = (props: Props) => {
         >
           <div>
             {/* <h5 className="text-center font-bold">Loggein an account </h5> */}
-            <span className="text-current font-light text-xs text-gray-600 text-center block">
+            <span className="text-current font-light text-xs text-gray-600 text-center block text">
               Enter your email and password to login
             </span>
           </div>
@@ -124,7 +124,7 @@ const LoginForm = (props: Props) => {
 
         <div className="flex gap-1 my-3 px-2 lg:px-12 items-center">
           <Divider className="flex-1" />
-          <h5 className="text-md">Or continue with</h5>
+          <h5 className="text-md text">Or continue with</h5>
           <Divider className="flex-1" />
         </div>
         <div className="flex flex-cols gap-2 px-2 lg:px-12">
@@ -165,14 +165,14 @@ const LoginForm = (props: Props) => {
           </Button>
         </div>
         <div className="py-5 w-full flex items-center justify-center">
-          <h5 className="text-xs">
+          <h5 className="text-xs text">
             Don&apos;t have an account ?{" "}
             <Link className="font-semibold" href={LINKS.register}>
               Register
             </Link>
           </h5>
         </div>
-        <div className="flex py-5 w-full items-center justify-center flex-col text-sm">
+        <div className="flex py-5 w-full items-center justify-center flex-col text-sm text">
           <h5 className="text-center text-xs lg:text-sm">
             By clicking continue, you agree to our{" "}
           </h5>
