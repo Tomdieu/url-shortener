@@ -35,7 +35,7 @@ export default function UserNav({ user }: UserNavProps) {
                 <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                     <Avatar className="h-10 w-10">
                         <AvatarImage src={user?.image as string} alt={user?.name as string} />
-                        <AvatarFallback className={"bg-stone-800 text-stone-50 dark:bg-stone-50 dark:text-stone-600 border font-poppins text-xl"}>{user?.name?.charAt(0)}</AvatarFallback>
+                        <AvatarFallback className={"shadow-xl font-poppins te   xt-xl"}>{user?.name?.charAt(0)}</AvatarFallback>
                     </Avatar>
                 </Button>
             </DropdownMenuTrigger>
