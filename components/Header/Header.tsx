@@ -35,7 +35,7 @@ const Header = ({user}: HeaderProps) => {
                     Dashboard
                 </Button>
                 </Link>
-                <Button variant="icon" onClick={toggleTheme}>
+                <Button variant="outline" size="icon" onClick={toggleTheme}>
                 {currentTheme === 'dark' ? <Sun /> : <Moon />}
                 </Button>
                 {Boolean(!user) && (<div className="flex item-center gap-2">
