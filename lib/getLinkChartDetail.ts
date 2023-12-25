@@ -2,17 +2,43 @@
 import prisma from "@/lib/prismadb";
 import { Click } from "@prisma/client";
 
-interface ClickData {
+import {minus1Year,minus3Month,minus7Days} from "@/lib/"
+
+export interface ClickData {
   timestamp: string;
   clicks: number;
 }
 
+
 export const getLinkChartDetail = async (
   short: string,
-  filterBy: "day" | "month" | "year"= "day",
+  filterBy: "day" | "month" | "year" = "day",
   startDate?: Date,
   endDate?: Date
-) => {  
+) => {
+
+  if(filterBy=="day"){
+    if(!startDate){
+      startDate = minus7Days(new Date())
+    }
+  }
+
+  if(filterBy=="month"){
+    if(!startDate){
+      startDate = minus3Month(new Date())
+    }
+  }
+
+  if(filterBy=="year"){
+    if(!startDate){
+      startDate = minus1Year(new Date())
+    }
+  }
+
+  if(!endDate){
+    endDate = new Date()
+  }
+
   const link = await prisma.link.findUnique({
     where: { short },
     include: {
