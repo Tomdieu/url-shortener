@@ -20,17 +20,17 @@ export default function HoverLink({url}:HoverLinkProps){
     })
 
 
-    // console.log(data)
+    console.log("Url Data is : ",data)
 
 
     return (
         <HoverCard>
             <HoverCardTrigger asChild>
-                <Button variant="link">{url}</Button>
+                <Button variant="link" className="truncate">{url}</Button>
             </HoverCardTrigger>
             <HoverCardContent className="p-0 m-0">
                 {isLoading ? (
-                    <p>Loading...</p>
+                    <p className="p-3">Loading...</p>
                     ):(
                     <Card className="py-4">
                         <CardBody className="overflow-visible py-2">
