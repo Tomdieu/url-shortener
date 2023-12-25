@@ -4,13 +4,15 @@ import { Link } from '@prisma/client';
 import { redirect } from 'next/navigation';
 import {useQuery} from "@tanstack/react-query";
 
+import { isMobile, isTablet } from 'react-device-detect';
+
 type Props = {
   params: { linkCode: string }
 }
 
-const fetchLink = (shortCode: string): Promise<Link> => {
+const fetchLink = (shortCode: string,referrer:string,deviceType:string): Promise<Link> => {
   return new Promise((resolve, reject) => {
-    fetch(`/api/links/${shortCode}`)
+    fetch(`/api/links/${shortCode}?referrer=${encodeURIComponent(referrer)}&deviceType=${deviceType}`)
       .then((res) => res.json() as unknown as Link)
       .then((data) => {
         resolve(data);
@@ -21,27 +23,39 @@ const fetchLink = (shortCode: string): Promise<Link> => {
   });
 };
 
+function getDeviceType() {
+  if (isMobile) {
+    return 'Mobile';
+  } else if (isTablet) {
+    return 'Tablet';
+  } else {
+    return 'Desktop';
+  }
+}
+
 
 const LinkDetail =  ({ params }: Props) => {
-
-
-  const {data,isLoading} = useQuery({
+  const deviceType = getDeviceType()
+  const {data,isLoading,error,isError} = useQuery({
     queryKey:["link-preview",params.linkCode],
     queryFn:()=>{
-      return  fetchLink(params.linkCode);
+      return  fetchLink(params.linkCode,document.referrer || "Direct",deviceType);
     },
   })
 
-  console.log({data})
+  console.log(data)
 
   if(isLoading){
     return <div>Loading...</div>
   }
-  // if(data){
-  //   // return data.original
-  //   return redirect(data.original)
 
-  // }
+  if(isError){
+    return (<div className="text">Error : {error.message}</div>)
+  }
+  if(data && data.original){
+    return redirect(data.original)
+
+  }
 }
 
 
