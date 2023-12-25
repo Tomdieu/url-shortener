@@ -6,10 +6,10 @@ generator client {
 }
 
 datasource db {
-  // provider = "sqlite"
-  provider = "postgresql"
+  provider = "sqlite"
+  // provider = "postgresql"
   url      = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  // directUrl = env("DIRECT_URL")
 }
 
 model Account {
@@ -88,4 +88,8 @@ model Click {
   link      Link     @relation(fields: [linkId], references: [id], onDelete: Cascade)
   ipAddress String?
   country   String?
+  referrer  String?
+  os        String?
+  browser   String?
+  device    String?
 }
