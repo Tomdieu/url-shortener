@@ -11,6 +11,7 @@ import {Separator} from "@/components/ui/separator";
 import {Badge} from "@/components/ui/badge";
 import CustomLineChart from "@/components/charts/CustomLineChart";
 import HoverLink from "@/components/Link/HoverLink";
+import { formaliseDay,formaliseYear,formaliseMonth,getUrlTopReferreDomain,getUrlTopLocations,getUrlTopDevices } from '@/lib';
 
 type Props = {
     params: { short: string }
@@ -76,9 +77,14 @@ const LinkDetail = async ({params, searchParams}: Props) => {
     const monthDetail = await getLinkChartDetail(short,"month");
     const yearDetail = await getLinkChartDetail(short,"year");
 
+    const topReferr = await getUrlTopReferreDomain(short)
+    const topCountries = await getUrlTopLocations(short);
+    const topDevices = await getUrlTopDevices(short);
+
+
 
     console.log({link})
-
+    console.log(formaliseDay(dayDetail))
 
 
     return (
@@ -87,10 +93,11 @@ const LinkDetail = async ({params, searchParams}: Props) => {
                 <div className="w-full mx-auto grid gap-2">
                     <h1 className="font-semibold text-3xl">Short URL Details</h1>
                     <div className="flex items-center text-sm gap-2">
-                        <a className="font-medium" href={process.env.URL+"/"+short} target="_blank">
+                        <a className="font-medium truncate" href={process.env.URL+"/"+short} target="_blank">
                             {/* <HoverLink url={process.env.URL+"/"+short}/> */}
-                            <HoverLink url={link?.data?.original!}/>
-                        </a>
+                            {link && link?.data && link?.data?.original && <HoverLink url={link?.data?.original!}/>}
+                            
+                        </a>    
                         <Separator className="h-5" orientation="vertical" />
                         <Badge className="font-semibold" variant="secondary">
                             {link.data?.clicks.length} Clicks
@@ -111,29 +118,38 @@ const LinkDetail = async ({params, searchParams}: Props) => {
             </div>
 
             <div className={"grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full"}>
-                <DetailCard title={"Top Referrers"} description={"Clicks"} items={[{label:"google.com",value:200},{label:"twitter.com",value:150}]}/>
-                <DetailCard title={"Top Locations"} description={"Clicks"} items={[{label:"United States",value:500},{label:"Germany",value:200},{label:"india",value:150}]}/>
-                <DetailCard title={"Top Devices"} description={"Clicks"} items={[{label:"Desktop",value:600},{label:"Mobile",value:400},{label:"Tablet",value:200}]}/>
+                {topReferr.length > 0 && (
+
+                <DetailCard title={"Top Referrers"} description={"Clicks"} items={topReferr}/>
+                )}
+                {topCountries.length > 0 && (
+                <DetailCard title={"Top Locations"} description={"Clicks"} items={topCountries}/>
+
+                )}
+                {topDevices.length > 0 && (
+
+                <DetailCard title={"Top Devices"} description={"Clicks"} items={topDevices}/>
+                )}
 
             </div>
 
             <div className={"py-3 dark-theme rounded-sm px-2 w-full grid grid-cols-1 lg:grid-cols-3 h-1/2 items-center"}>
                 <div className={"h-full flex flex-col flex-1"}>
                     <h6>Day</h6>
-                    <CustomBarChart tooltip className={"flex-1 w-[400px] max-w-[500px] max-h-[400px]"} data={dayDetail} barSize={30}
+                    <CustomBarChart tooltip={false} className={"flex-1 w-[400px] max-w-[500px] max-h-[400px]"} data={formaliseDay(dayDetail)} barSize={40}
                                     xDataKey={"timestamp"} dataKey={"clicks"}/>
-                    {/*<CustomLineChart xDataKey={"timestamp"} data={dayDetail} datakey={"clicks"} fill={"#000"} className={"flex-1 w-[400px] max-w-[500px] max-h-[400px]"} tooltip/>*/}
-                </div>
+                    {/* <CustomLineChart xDataKey={"timestamp"} data={formaliseDay(dayDetail)} datakey={"clicks"} fill={"#000"} className={"flex-1 w-[400px] max-w-[500px] max-h-[400px]"} tooltip={false}/> */}
+                </div>                                                                                                                                                  
                 <div className={"h-full flex flex-col flex-1"}>
                     <h6>Month</h6>
-                    <CustomBarChart tooltip className={"flex-1 w-[400px] max-w-[500px] max-h-[400px]"} data={monthDetail} barSize={30}
+                    <CustomBarChart  tooltip={false} className={"flex-1 w-[400px] max-w-[500px] max-h-[400px]"} data={formaliseMonth(monthDetail)} barSize={30}
                                     xDataKey={"timestamp"} dataKey={"clicks"}/>
                     {/*<CustomLineChart xDataKey={"timestamp"} data={monthDetail} datakey={"clicks"} fill={"#000"} className={"flex-1 w-[400px] max-w-[500px] max-h-[400px]"} tooltip/>*/}
 
                 </div>
                 <div className={"h-full flex flex-col flex-1"}>
                     <h6>Year</h6>
-                    <CustomBarChart tooltip className={"flex-1 w-[400px] max-w-[500px] max-h-[400px]"} data={yearDetail} barSize={30}
+                    <CustomBarChart tooltip={false} className={"flex-1 w-[400px] max-w-[500px] max-h-[400px]"} data={formaliseYear(yearDetail)} barSize={30}
                                     xDataKey={"timestamp"} dataKey={"clicks"}/>
                 </div>
 
