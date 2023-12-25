@@ -23,7 +23,7 @@ export default function CustomBarChart({barSize=30,xDataKey,data,dataKey,fill="#
     return (
         <ResponsiveContainer className={className}>
             <BarChart data={data}>
-                <CartesianGrid strokeDasharray="3 3" />
+                {/* <CartesianGrid strokeDasharray="3 3" /> */}
 
                 {tooltip && <Tooltip labelClassName={"dark:text-slate-800"} />}
                 <Legend />
