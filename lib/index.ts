@@ -1,6 +1,7 @@
 "use server"
 import prisma from "./prismadb"
-import {ClickData} from "./getLinkChartDetail";
+import { ClickData, getLinkChartDetail } from "./getLinkChartDetail";
+import { nivoCalendarType } from "@/components/nivo/Calendar";
 
 export const minus7Days = (currentDate: Date): Date => {
     const sevenDaysAgo = new Date(currentDate);
@@ -27,8 +28,8 @@ const sort = (clickData: ClickData[]) => {
 };
 
 const extractWeekDay = (clickData: ClickData[]) => {
-    const extractedDay: ClickData[] = clickData.map(({clicks, timestamp}) => {
-        const dayName = new Date(timestamp).toLocaleDateString('en-US', {weekday: 'short'});
+    const extractedDay: ClickData[] = clickData.map(({ clicks, timestamp }) => {
+        const dayName = new Date(timestamp).toLocaleDateString('en-US', { weekday: 'short' });
         return {
             clicks,
             timestamp: dayName
@@ -43,9 +44,10 @@ export const formaliseDay = (clickData: ClickData[]) => {
     const sevenDays: Record<string, number> = {};
 
     // Populate the sevenDays object with timestamps for the last 7 days
-    Array.from({length: 7}).map((_, index) => {
-        currentDate.setDate(currentDate.getDate() - index);
-        sevenDays[currentDate.toDateString()] = 0;
+    Array.from({ length: 7 }).map((_, index) => {
+        const newDate = new Date(currentDate);
+        newDate.setDate(currentDate.getDate() - index);
+        sevenDays[newDate.toDateString()] = 0;
     });
 
     // Update the sevenDays object with the actual click data
@@ -69,7 +71,7 @@ export const formaliseYear = (clickData: ClickData[]) => {
 
     const twoYears: Record<string, number> = {}
 
-    Array.from({length: 2}).map((_, index) => {
+    Array.from({ length: 2 }).map((_, index) => {
         currentDate.setFullYear(currentDate.getFullYear() - index);
         twoYears[currentDate.getFullYear().toString()] = 0
     })
@@ -85,8 +87,6 @@ export const formaliseYear = (clickData: ClickData[]) => {
         clicks,
     }));
 
-    console.log(formattedClickData)
-
     return formattedClickData.sort((a, b) => parseInt(a.timestamp) - parseInt(b.timestamp));
 
 }
@@ -96,9 +96,9 @@ export const formaliseMonth = (clickData: ClickData[]) => {
 
     const threeMonths: Record<string, number> = {};
 
-    Array.from({length: 3}).map((_, index) => {
+    Array.from({ length: 3 }).map((_, index) => {
         currentDate.setMonth(currentDate.getMonth() - index)
-        threeMonths[currentDate.toLocaleString('default', {month: 'long'})] = 0
+        threeMonths[currentDate.toLocaleString('default', { month: 'long' })] = 0
     })
 
     clickData.forEach((items) => {
@@ -109,8 +109,6 @@ export const formaliseMonth = (clickData: ClickData[]) => {
         timestamp,
         clicks,
     }));
-
-    console.log(formattedClickData)
 
     // Sort the formattedClickData array by month name
     const monthOrder = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -131,7 +129,7 @@ function extractHostIfValidURL(str: string) {
 
 
 export const getUrlTopReferreDomain = async (urlShortCode: string) => {
-    const linkData = await prisma.link.findUnique({where: {short: urlShortCode}, include: {clicks: true}})
+    const linkData = await prisma.link.findUnique({ where: { short: urlShortCode }, include: { clicks: true } })
 
     const referrs: Record<string, number> = {}
 
@@ -160,7 +158,7 @@ export const getUrlTopReferreDomain = async (urlShortCode: string) => {
 }
 
 export const getUrlTopLocations = async (urlShortCode: string) => {
-    const linkData = await prisma.link.findUnique({where: {short: urlShortCode}, include: {clicks: true}})
+    const linkData = await prisma.link.findUnique({ where: { short: urlShortCode }, include: { clicks: true } })
 
     const countries: Record<string, number> = {};
 
@@ -185,24 +183,24 @@ export const getUrlTopLocations = async (urlShortCode: string) => {
 }
 
 export const getUrlTopDevices = async (urlShortCode: string) => {
-    const linkData = await prisma.link.findUnique({where: {short: urlShortCode}, include: {clicks: true}})
+    const linkData = await prisma.link.findUnique({ where: { short: urlShortCode }, include: { clicks: true } })
 
     const devices: Record<string, number> = {}
 
     linkData?.clicks.map((data) => {
 
-            const device = data.device
+        const device = data.device
 
-            const isPresent = device! in devices
+        const isPresent = device! in devices
 
-            if (device) {
-                if (isPresent) {
-                    devices[device] += 1
-                } else {
-                    devices[device] = 1
-                }
+        if (device) {
+            if (isPresent) {
+                devices[device] += 1
+            } else {
+                devices[device] = 1
             }
         }
+    }
     )
 
     return Object.entries(devices).map(([device, count]) => ({
@@ -210,4 +208,42 @@ export const getUrlTopDevices = async (urlShortCode: string) => {
         value: count
     }))
 
+}
+
+export const getTopBrowser = async (urlShortCode: string) => {
+    const linkData = await prisma.link.findUnique({ where: { short: urlShortCode }, include: { clicks: true } })
+
+    const browsers: Record<string, number> = {}
+
+    linkData?.clicks.map((data) => {
+
+        const browser = data.browser
+
+        const isPresent = browser! in browsers
+
+        if (browser) {
+            if (isPresent) {
+                browsers[browser] += 1
+            } else {
+                browsers[browser] = 1
+            }
+        }
+    }
+    )
+
+    return Object.entries(browsers).map(([browser, count]) => ({
+        label: browser,
+        value: count
+    }))
+}
+
+const formatDate = (date: Date): string => {
+    return date.toISOString().split("T")[0];
+}
+
+export const formatToNivoCalendar = async (urlShortCode: string): Promise<nivoCalendarType[]> => {
+
+    const results = await getLinkChartDetail(urlShortCode, "day", minus1Year(new Date()), new Date())
+
+    return results.map(({ timestamp, clicks }) => ({ day: formatDate(new Date(timestamp)), value: clicks }))
 }
