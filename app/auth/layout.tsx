@@ -2,6 +2,7 @@ import TypeWriter from "@/components/typewriter";
 import { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
+import ThemeButton from "@/components/ThemeButton"
 
 type AuthLayoutProps = {
   children: React.ReactNode;
@@ -14,15 +15,16 @@ export const metadata: Metadata = {
 
 const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
   return (
-    <div className="w-screen h-screen flex overflow-x-hidden">
-      <div className="hidden sm:w-5/12 md:w-7/12 lg:w-8/12 sm:flex flex-col h-full bg-gray-100 container mx-auto">
-        <div className="my-2">
-          <h5 className="text-2xl font-bold cursor-pointer select-none">
+    <div className="w-screen h-screen flex overflow-x-hidden dark:bg-stone-800">
+      <div className="hidden sm:w-5/12 md:w-7/12 lg:w-8/12 sm:flex flex-col h-full bg-gray-100 dark:bg-stone-800 container mx-auto">
+        <div className="my-2 flex items-center justify-between">
+          <h5 className="text-2xl font-bold cursor-pointer select-none dark:text-stone-50">
             <Link href={"/"}>Trix Url</Link>
           </h5>
+          <ThemeButton/>
         </div>
         <div className="flex-1 flex items-start justify-center h-full  gap-3 flex-col">
-          <h1 className="sm:text-4xl md:text-5xl lg:text-7xl font-bold flex-wrap">
+          <h1 className="sm:text-4xl md:text-5xl lg:text-7xl font-bold flex-wrap dark:text-stone-50">
             Url Shortener
           </h1>
 
@@ -31,7 +33,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
           </h5>
         </div>
       </div>
-      <div className="flex-1 sm:w-7/12 md:w-5/12 lg:w-4/12 h-full bg-white">
+      <div className="flex-1 sm:w-7/12 md:w-5/12 lg:w-4/12 h-full bg-white dark:bg-stone-900">
         {children}
       </div>
     </div>
