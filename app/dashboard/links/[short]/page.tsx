@@ -13,6 +13,9 @@ import CustomLineChart from "@/components/charts/CustomLineChart";
 import HoverLink from "@/components/Link/HoverLink";
 import { formaliseDay, formaliseYear, formaliseMonth, getUrlTopReferreDomain, getUrlTopLocations, getUrlTopDevices, getTopBrowser, formatToNivoCalendar, minus1Year } from '@/lib';
 import Calendar from '@/components/nivo/Calendar';
+import { Button } from '@/components/ui/button';
+import { AlertTriangle, ArrowLeft } from 'lucide-react';
+import Link from "next/link"
 
 type Props = {
     params: { short: string }
@@ -55,6 +58,7 @@ export async function generateMetadata({ params, searchParams }: Props, parent: 
         }
 
         return {
+            metadataBase: new URL(process.env.URL as string),
             title: "Trix Url | Link",
             description: "Trix Url",
         };
@@ -71,6 +75,7 @@ const LinkDetail = async ({ params, searchParams }: Props) => {
     const { short } = params;
 
     const link = await getLink(short)
+    
 
     const dayDetail = await getLinkChartDetail(short, "day");
     const monthDetail = await getLinkChartDetail(short, "month");
@@ -89,7 +94,29 @@ const LinkDetail = async ({ params, searchParams }: Props) => {
         return date.toISOString().split("T")[0];
     }
 
+    if(!link.success){
+        return (<div className="flex w-full h-full items-center justify-center font-bold font-poppins flex-col gap-5">
+            <div className='max-w-md space-y-8'>
+            <div className="flex items-center flex-col gap-3">
+        <AlertTriangle size={32} className="text-red-300"/>
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 text">Sorry, page not found</h2>
+            </div>
 
+        <div className="mt-8 space-y-6">
+        <p className="mt-2 text-center text-sm text-gray-600">
+            We couldn't find the page you're looking for. Click the button below to return to the homepage.
+          </p>
+          <Button
+            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            
+          >
+            <Link href="/dashboard/links/">Return to Links Page</Link>
+          </Button>
+            </div>
+            </div>
+        
+    </div>);
+    }
 
     return (
         <div className={"flex-1 w-full h-full flex flex-col space-y-2"}>
@@ -113,16 +140,18 @@ const LinkDetail = async ({ params, searchParams }: Props) => {
                 {/*</div>*/}
                 {/*<CustomLineChart className={"max-w-[500px] max-h-[400px]"} type={"bump"}  data={detail}  datakey={"clicks"} />*/}
 
-                <div className="flex items-center gap-4 flex-col sm:flex-row w-full">
+                <div className="flex items-center gap-4 flex-col md:flex-row w-full">
                     <div className={"max-w-md"}>
                         {link.data && (
                             <UpdateUrl link={link.data} />
                         )}
                     </div>
-                    <div>
+                    <div className="flex flex-1 flex-col gap-4 h-full h-[300px]">
                         <span className="text">Nivo Chart</span>
                         <Calendar 
                             data={nivoCalendarData}
+                            // className="w-full h-full"
+                            classsName={"w-[700px] h-[600px]"}
                             // from={formatDate(minus1Year(currentDate))} 
                             // to={formatDate(currentDate)} 
                         />
