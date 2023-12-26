@@ -8,6 +8,9 @@ import {generateShortCode} from "@/lib/generateShortCode";
 export async function getLink(linkCode: string) {
     try {
         const link = await prisma.link.findFirst({where: {short: linkCode},include:{clicks:true}});
+        if(!link){
+            return {success: false, message: "Link Not Found"};
+        }
         return {success: true, data: link, message: ""};
     } catch (e: any) {
         return {success: false, message: "Link Not Found"};
