@@ -3,7 +3,6 @@
 import { Link } from '@prisma/client';
 import { redirect } from 'next/navigation';
 import {useQuery} from "@tanstack/react-query";
-
 import { isMobile, isTablet } from 'react-device-detect';
 
 type Props = {
@@ -12,7 +11,7 @@ type Props = {
 
 const fetchLink = (shortCode: string,referrer:string,deviceType:string): Promise<Link> => {
   return new Promise((resolve, reject) => {
-    fetch(`/api/links/${shortCode}?referrer=${encodeURIComponent(referrer)}&deviceType=${deviceType}`)
+    fetch(`/api/links/${shortCode}?referrer=${encodeURIComponent(referrer)}&deviceType=${deviceType}`,{next:{revalidate:600}})
       .then((res) => res.json() as unknown as Link)
       .then((data) => {
         resolve(data);
@@ -43,7 +42,7 @@ const LinkDetail =  ({ params }: Props) => {
     },
   })
 
-  console.log(data)
+
 
   if(isLoading){
     return <div>Loading...</div>
