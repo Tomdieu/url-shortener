@@ -1,6 +1,7 @@
 import { Click, Link } from "@prisma/client";
 import React from "react";
 import {cn} from "@/lib/utils";
+import {formatNumber} from "@/lib/formatNumber";
 
 type LinkType = Link & {
   clicks: Click[];
@@ -23,7 +24,7 @@ const TopShortenUrl = ({ shortenedUrls }: Props) => {
         {shortenedUrls.map((url) => (
           <div key={url.id} className="w-full flex items-center justify-around xl:justify-between">
             <a
-              className="block dark:text-white/70 text-blue-500 text-sm font-serif font-semibold truncate"
+              className="block dark:text-white/70 text text-sm font-serif font-semibold truncate"
               href={url.original}
               target="_blank"
               rel="noopener noreferrer"
@@ -31,8 +32,8 @@ const TopShortenUrl = ({ shortenedUrls }: Props) => {
               {/*{url.original}*/}
                 {process.env.NEXT_PUBLIC_URL+"/"+url.short}
             </a>
-            <span className="block dark:border-white/20 p-2 px-3 border text-xs/tight xl:text-sm rounded-xl cursor-pointer">
-              {url.clicks.length < 10 ? `0${url.clicks.length}` : url.clicks.length} clicks
+            <span className="block  p-1 px-2 border text-xs/tight xl:text-sm rounded-xl cursor-pointer">
+              {url.clicks.length < 10 ? `0${url.clicks.length}` : formatNumber(url.clicks.length)} clicks
             </span>
           </div>
         ))}

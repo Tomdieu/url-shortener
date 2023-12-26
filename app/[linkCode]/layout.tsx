@@ -16,6 +16,13 @@ export async function generateMetadata(
 
     const link = await getLink(linkCode)
 
+    if(!link.success){
+        return {
+            title:linkCode + " : Not Found",
+            description:"No Description For this link"
+        }
+    }
+
     // optionally access and extend (rather than replace) parent metadata
     const previousImages = (await parent).openGraph?.images || []
 
@@ -23,12 +30,23 @@ export async function generateMetadata(
 
     const {title,description,image} = extractedMetaData
 
+    const {short,original}=link.data!
+    // process.env.URL+'/icon.png'
     return {
-        title: title,
-        description:description,
+        title: process.env.URL+"/"+linkCode,
+        description:"Total Clicks : "+link.data?.clicks.length,
         openGraph: {
-            images: [process.env.URL+'/icon.png',image, ...previousImages],
+            images: [image, ...previousImages],
+            description:"Total Clicks : "+link.data?.clicks.length,
+            title:original,
+            url:process.env.URL,
+            tags:["Trix Url",original],
         },
+        twitter:{
+            images: [image, ...previousImages],
+            description:"Total Clicks : "+link.data?.clicks.length,
+            title:original,
+        }
     }
 }
 

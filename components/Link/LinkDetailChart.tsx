@@ -1,8 +1,10 @@
 "use client"
 
 import {useQuery} from "@tanstack/react-query";
-import {getLinkChartData} from "@/lib/getChartLinkData";
 import {cn} from "@/lib/utils";
+import {extractMetaData} from "@/lib/actions/preview-link";
+import {getLink} from "@/lib/actions/links";
+import LinkCard from "@/components/Link/LinkCard";
 
 type LinkDetailProps = {
     linkId: string;
@@ -11,12 +13,23 @@ type LinkDetailProps = {
 
 export default function LinkDetailChart({linkId, className}: LinkDetailProps) {
 
-    const {isLoading, isError, data, isFetched} = useQuery({
-        queryKey: ["link", linkId],
-        queryFn: async () => {
-            return await getLinkChartData(linkId)
+    const {data:linkData} = useQuery({
+        queryKey: ["link", linkId], queryFn: async () => {
+            return getLink(linkId)
         }
     })
+
+
+
+    const {data, isLoading, isError} = useQuery({
+        queryFn: () => {
+            return extractMetaData(linkData?.data?.original!)
+        },
+        queryKey: ["link", "preview", linkData?.data?.original],
+        enabled:linkData !== undefined
+    })
+    if(!linkData?.success) return null;
+
 
 
     return (
@@ -28,10 +41,10 @@ export default function LinkDetailChart({linkId, className}: LinkDetailProps) {
                 </div>
             ) : (
                 <div className={"flex-1 flex flex-col items-center"}>
-                    <h1 className={"text-left text-xl font-medium font-poppins"}>Trix Url Details</h1>
-                    {data && <div className={"flex items-center p-5 rounded-md flex-col"}><span className={"text-3xl"}>Total Clicks </span>
-                        <span className={"text-xl"}>{data.totalClicks}</span></div>}
+                    {data && (
+                        <LinkCard url={linkData?.data?.original!} title={data.meta.title!} image={data.og.image!} description={data.meta.description!} />
 
+                    )}
                 </div>
             )}
         </div>

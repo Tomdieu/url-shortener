@@ -16,7 +16,7 @@ type NavBarProps = {
 
 const NavBar: React.FC<NavBarProps> = ({ user }) => {
   return (
-    <div className="dark:bg-[#18181B] dark:text-white dark:border-b-white/20 sticky top-0 z-50 bg-white bg-opacity-40 backdrop-blur-md shadow-lg py-2 md:py-3 border-b-1 px-4 w-full z-99">
+    <div className="dark:bg-[#18181B] dark:text-white dark:border-b-white/20 sticky top-0 z-50 bg-white bg-opacity-40 backdrop-blur-md shadow-lg py-2 md:py-4 border-b-1 px-4 w-full z-99">
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-1">
           <Sheet>

@@ -1,7 +1,8 @@
 "use server"
 import prisma from "./prismadb"
 import { ClickData, getLinkChartDetail } from "./getLinkChartDetail";
-import { nivoCalendarType } from "@/components/nivo/Calendar";
+import getCurrentUser from "@/lib/getCurrentUser";
+import {getLinks} from "@/lib/getLinks";
 
 export const minus7Days = (currentDate: Date): Date => {
     const sevenDaysAgo = new Date(currentDate);
@@ -65,6 +66,217 @@ export const formaliseDay = (clickData: ClickData[]) => {
     return extractWeekDay(sort(formattedClickData));
 };
 
+export const getTopReferrersAnalytics = async () => {
+    const user = await getCurrentUser();
+    if(!user) return null
+
+    const links = await getLinks()
+
+    const totalReferres : Record<string, number> = {}
+
+    await Promise.all(links.map(async (link)=>{
+        const referrers:Record<string, number> = {}
+
+        link.clicks.map(({referrer})=>{
+            if(referrer){
+                if(referrer in referrers){
+                    referrers[referrer] = referrers[referrer] + 1
+                    totalReferres[referrer] = (totalReferres[referrer] || 0) + 1
+                }
+                else{
+                    referrers[referrer] = 0
+                }
+            }
+
+        })
+    }))
+
+    const formattedReferred = Object.entries(totalReferres).map(([label,value])=>({label,value}))
+
+    return formattedReferred.slice(0,5)
+
+}
+
+export const getTopBrowserAnalytics = async  () => {
+    const user = await getCurrentUser();
+    if(!user) return null
+
+    const links = await getLinks()
+
+    const totalBrowsers : Record<string, number> = {}
+
+    await Promise.all(links.map(async (link)=>{
+        const browsers:Record<string, number> = {}
+
+        link.clicks.map(({browser})=>{
+            if(browser){
+                if(browser in browsers){
+                    browsers[browser] = browsers[browser] + 1
+                    totalBrowsers[browser] = (totalBrowsers[browser] || 0) + 1
+                }
+                else{
+                    browsers[browser] = 0
+                }
+            }
+
+        })
+    }))
+
+    const formattedReferred = Object.entries(totalBrowsers).map(([label,value])=>({label,value}))
+
+    return formattedReferred.slice(0,5)
+}
+
+export const getTopPlatformsAnalytics = async () => {
+    const user = await getCurrentUser();
+    if(!user) return null
+
+    const links = await getLinks()
+
+    const totalPlatforms : Record<string, number> = {}
+
+    await Promise.all(links.map(async (link)=>{
+        const platforms:Record<string, number> = {}
+
+        link.clicks.map(({os})=>{
+            if(os){
+                if(os in platforms){
+                    platforms[os] = platforms[os] + 1
+                    totalPlatforms[os] = (totalPlatforms[os] || 0) + 1
+                }
+                else{
+                    platforms[os] = 0
+                }
+            }
+
+        })
+    }))
+
+    const formattedReferred = Object.entries(totalPlatforms).map(([label,value])=>({label,value}))
+
+    return formattedReferred.slice(0,5)
+}
+
+export const getTopCountriesAnalytics = async () =>{
+    const user = await getCurrentUser();
+    if(!user) return null
+
+    const links = await getLinks()
+
+    const totalCountries : Record<string, number> = {}
+
+    await Promise.all(links.map(async (link)=>{
+        const countries:Record<string, number> = {}
+
+        link.clicks.map(({country})=>{
+            if(country){
+                if(country in countries){
+                    countries[country] = countries[country] + 1
+                    totalCountries[country] = (totalCountries[country] || 0) + 1
+                }
+                else{
+                    countries[country] = 0
+                }
+            }
+
+        })
+    }))
+
+    const formattedReferred = Object.entries(totalCountries).map(([label,value])=>({label,value}))
+
+    return formattedReferred.slice(0,5)
+}
+
+// export const
+
+export const getAllMonthsAnalyticsByYear = async (year:number) => {
+    const user = await getCurrentUser();
+
+    if(user){
+        const links = await getLinks();
+        const total12Months:Record<string,number> = {};
+
+        Array.from({length:12}).forEach((_, index) => {
+            const newDate = new Date();
+            newDate.setMonth(newDate.getMonth() - index-1);
+            total12Months[newDate.toLocaleString('default', { month: 'long' })] = 0;
+        });
+
+
+        await Promise.all(links.map(async (link)=>{
+            const twelveMonths:Record<string,number> = {};
+
+            Array.from({length:12}).forEach((_,index)=>{
+                const newDate = new Date()
+                newDate.setMonth(newDate.getMonth() - 1);
+                twelveMonths[newDate.toLocaleString('default', { month: 'long' })] = 0
+            })
+
+            const clickData = await getLinkChartDetail(link.short, 'month');
+
+            clickData.forEach((items) => {
+                twelveMonths[items.timestamp] = items.clicks
+                total12Months[items.timestamp] = (total12Months[items.timestamp] || 0) + items.clicks;
+
+            })
+
+        }))
+
+        const formattedClickData: ClickData[] = Object.entries(total12Months).map(([timestamp, clicks]) => ({
+            timestamp,
+            clicks,
+        }));
+
+        const monthOrder = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        return formattedClickData.sort((a, b) => monthOrder.indexOf(a.timestamp) - monthOrder.indexOf(b.timestamp));
+
+    }
+
+    return null
+
+}
+
+export const getChartsLinks = async () => {
+    const user = await getCurrentUser();
+
+    if (user) {
+        const links = await getLinks();
+        const totalSevenDays: Record<string, number> = {};
+
+        Array.from({length: 7}).forEach((_, index) => {
+            const newDate = new Date();
+            newDate.setDate(newDate.getDate() - index);
+            totalSevenDays[newDate.toDateString()] = 0;
+        });
+
+        // Map over each link and accumulate the click data into totalSevenDays
+        await Promise.all(links.map(async (link) => {
+            const sevenDays: Record<string, number> = {};
+
+            Array.from({length: 7}).forEach((_, index) => {
+                const newDate = new Date();
+                newDate.setDate(newDate.getDate() - index);
+                sevenDays[newDate.toDateString()] = 0;
+            });
+
+            const clickData = await getLinkChartDetail(link.short, 'day');
+
+            clickData.forEach((items) => {
+                sevenDays[items.timestamp] += items.clicks;
+                totalSevenDays[items.timestamp] = (totalSevenDays[items.timestamp] || 0) + items.clicks;
+            });
+
+        }));
+
+        // Convert the totalSevenDays object into an array of ClickData
+        const formattedClickData: ClickData[] = Object.entries(totalSevenDays).map(([timestamp, clicks]) => ({
+            timestamp,
+            clicks,
+        }));
+
+        return extractWeekDay(sort(formattedClickData));
+    }
+}
 
 export const formaliseYear = (clickData: ClickData[]) => {
     const currentDate = new Date();
@@ -240,11 +452,4 @@ export const getTopBrowser = async (urlShortCode: string) => {
 
 const formatDate = (date: Date): string => {
     return date.toISOString().split("T")[0];
-}
-
-export const formatToNivoCalendar = async (urlShortCode: string): Promise<nivoCalendarType[]> => {
-
-    const results = await getLinkChartDetail(urlShortCode, "day", minus1Year(new Date()), new Date())
-
-    return results.map(({ timestamp, clicks }) => ({ day: formatDate(new Date(timestamp)), value: clicks }))
 }

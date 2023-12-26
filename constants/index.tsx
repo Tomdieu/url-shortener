@@ -33,9 +33,9 @@ label: "Analytics",
         icon:<FiSettings className="w-5 h-5" />,
         url: "/dashboard/settings"
     },
-    {
-        label:"Pricing",
-        icon: <Wallet className="w-5 h-5"  />,
-        url: "/dashboard/pricing"
-    }
+    // {
+    //     label:"Pricing",
+    //     icon: <Wallet className="w-5 h-5"  />,
+    //     url: "/dashboard/pricing"
+    // }
 ]

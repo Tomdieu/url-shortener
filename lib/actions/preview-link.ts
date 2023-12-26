@@ -8,7 +8,7 @@ import * as cheerio from 'cheerio';
 
 export async function previewLink(url:string){
     try {
-        const response = await fetch(url);
+        const response = await fetch(url,{next:{revalidate:600}});
         const html = await response.text()
         const root = parse(html);
         const title = root.querySelector("title")?.text

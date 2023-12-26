@@ -51,10 +51,10 @@ const LinkDetail =  ({ params }: Props) => {
   if(isError){
     return (<div className="text">Error : {error.message}</div>)
   }
-  if(data && data.original){
-    return redirect(data.original)
-
-  }
+  // if(data && data.original){
+  //   return redirect(data.original)
+  //
+  // }
 }
 
 

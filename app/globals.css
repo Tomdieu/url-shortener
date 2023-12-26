@@ -18,3 +18,7 @@ body {
         @apply transition-all ease-out border-stone-200 dark:border-stone-800 border-spacing-0.5 text-sm flex gap-2 items-center p-3 rounded-md cursor-pointer hover:bg-stone-900 hover:text-stone-50
     }
 }
+
+rect{
+    border-radius:5px;
+}

@@ -47,7 +47,7 @@ const Header = ({user}: HeaderProps) => {
                     </Link>
                 </div>)}
 
-                {user && <UserNav/>}
+                {user && <UserNav user={user}/>}
             </div>
                 </div>
 

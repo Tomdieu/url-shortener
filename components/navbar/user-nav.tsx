@@ -67,10 +67,10 @@ export default function UserNav({ user }: UserNavProps) {
                         Settings
                         {/*<DropdownMenuShortcut>⌘S</DropdownMenuShortcut>*/}
                     </DropdownMenuItem>
-                    <DropdownMenuItem className="flex gap-2">
-                        <Wallet size={16} className="text-black dark:text-white"/>
-                        Pricing
-                    </DropdownMenuItem>
+                    {/*<DropdownMenuItem className="flex gap-2">*/}
+                    {/*    <Wallet size={16} className="text-black dark:text-white"/>*/}
+                    {/*    Pricing*/}
+                    {/*</DropdownMenuItem>*/}
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="flex gap-2" onClick={() =>

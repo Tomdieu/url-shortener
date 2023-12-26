@@ -1,4 +1,5 @@
 import { CardDescription, CardHeader, CardContent, Card, CardTitle } from "@/components/ui/card"
+import {formatNumber} from "@/lib/formatNumber";
 
 type Items = {
     label:string;
@@ -22,10 +23,9 @@ export default function DetailCard({title,description,items}:DetailCardProps){
                 {items.map(({value,label})=>(
                     <div className="flex items-center" key={label}>
                         <div>{label}</div>
-                        <div className="font-semibold ml-auto">{value}</div>
+                        <div className="font-semibold ml-auto">{formatNumber(value)}</div>
                     </div>
                 ))}
-
             </CardContent>
         </Card>
     )
