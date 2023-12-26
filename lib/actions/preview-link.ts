@@ -1,4 +1,5 @@
 "use server"
+
 import { parse } from "node-html-parser"
 
 import {parser as meta_parser} from "html-metadata-parser"
@@ -39,16 +40,19 @@ export async function scrapeWebsite(url:string){
         const scrapedData: ScrapedData = {};
 
         const title = $('title').text().trim();
+
         if (title) {
             scrapedData.title = title;
         }
 
         const description = $('meta[name="description"]').attr('content');
+
         if (description) {
             scrapedData.description = description;
         }
 
         const ogImage = $('meta[property^="og:image"]').attr('content');
+
         if (ogImage) {
             scrapedData.ogImage = ogImage;
         }
