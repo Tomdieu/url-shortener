@@ -97,8 +97,9 @@ export const formaliseMonth = (clickData: ClickData[]) => {
     const threeMonths: Record<string, number> = {};
 
     Array.from({ length: 3 }).map((_, index) => {
-        currentDate.setMonth(currentDate.getMonth() - index)
-        threeMonths[currentDate.toLocaleString('default', { month: 'long' })] = 0
+        const newDate = new Date(currentDate);
+        newDate.setMonth(newDate.getMonth() - index)
+        threeMonths[newDate.toLocaleString('default', { month: 'long' })] = 0
     })
 
     clickData.forEach((items) => {
