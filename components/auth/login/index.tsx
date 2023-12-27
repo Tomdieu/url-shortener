@@ -43,7 +43,7 @@ const LoginForm = (props: Props) => {
         if (callback?.ok) {
           router.refresh();
           toast.success("Logged in Successfully", { position: "top-center" });
-          console.log("Login Successfull");
+          
           router.push("/dashboard");
         }
 
@@ -143,13 +143,11 @@ const LoginForm = (props: Props) => {
             onClick={() => {
               signIn("google", { callbackUrl: "/dashboard" }).then(
                 (callback) => {
-                  console.log("Callback", { callback });
                   if (callback?.ok) {
                     router.refresh();
                     toast.success("Logged in Successfully", {
                       position: "top-center",
                     });
-                    console.log("Login Successfull");
                     router.push("/dashboard");
                   }
 
