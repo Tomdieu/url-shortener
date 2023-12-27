@@ -20,7 +20,6 @@ export const config = {
 };
 
 export function middleware(request: NextRequest) {
-  console.log("Path : ",request.nextUrl.pathname)
   const pathName = request.nextUrl.pathname
   if("/dashboard/settings" === pathName){
     return NextResponse.rewrite(new URL('/dashboard/settings/profile', request.url))
