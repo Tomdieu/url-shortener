@@ -20,8 +20,6 @@ export default function HoverLink({url}:HoverLinkProps){
     })
 
 
-    console.log("Url Data is : ",data)
-
 
     return (
         <HoverCard>
