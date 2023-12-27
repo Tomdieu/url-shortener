@@ -1,9 +1,7 @@
 "use client"
 import {linkSchema, LinkType} from '@/schema/link.schema';
-import {redirect, useRouter} from 'next/navigation';
-import React, {useState} from 'react';
-
-import { useFormStatus } from 'react-dom'
+import {useRouter} from 'next/navigation';
+import React from 'react';
 
 import {
     Form,
@@ -29,6 +27,7 @@ import {Input} from "@/components/ui/input";
 import {create} from "@/lib/actions/links";
 import SubmitButton from "@/components/SubmitButton";
 import {toast} from "react-hot-toast";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
 
 
 type UrlShortenerFormProps = {
@@ -40,15 +39,32 @@ const UrlShortenerForm: React.FC<UrlShortenerFormProps> = ({showBorder=true}:Url
 
     const form  = useForm<LinkType>({resolver:zodResolver(linkSchema),mode:"onBlur"})
     const router = useRouter()
-    const onSubmit = async (value:LinkType) => {
-        const url =await create(value)
-        if(url){
-            router.refresh()
-            toast.success("Url Shorten Successfully")
-            setTimeout(()=>{
-                router.push("/dashboard/links/")
-            },2000)
+    const queryClient = useQueryClient()
+    const {mutate,isPending} = useMutation({
+        mutationKey:["shortend-url"],
+        mutationFn:async (value:LinkType)=>{
+            return create(value)
         }
+    })
+    const onSubmit = async (value:LinkType) => {
+        // const url =await create(value)
+        mutate(value,{
+            onSuccess:(res)=>{
+                queryClient.invalidateQueries({queryKey:["links"],exact:true})
+                // router.refresh()
+                toast.success("Url Shorten Successfully")
+                router.push("/dashboard/links/"+res?.data?.short)
+
+            }
+        })
+        // if(url){
+        //     setLoading(true)
+        //     router.refresh()
+        //     toast.success("Url Shorten Successfully")
+        //     setTimeout(()=>{
+        //         router.push("/dashboard/links/")
+        //     },2000)
+        // }
     }
 
     return (
@@ -57,7 +73,7 @@ const UrlShortenerForm: React.FC<UrlShortenerFormProps> = ({showBorder=true}:Url
                 <Card className={showBorder?"":"border-none shadow-none"}>
                     <CardHeader>
                         <CardTitle>Shortened  Url</CardTitle>
-                        <CardDescription className={"font-poppins"}>Enter the url you want to shortend</CardDescription>
+                        <CardDescription className={"font-poppins"}>Enter the url you want to shortened</CardDescription>
                     </CardHeader>
                     <CardContent>
                         <FormField control={form.control} render={({field})=>(
@@ -74,7 +90,7 @@ const UrlShortenerForm: React.FC<UrlShortenerFormProps> = ({showBorder=true}:Url
                         )} name={"original"} />
                     </CardContent>
                     <CardFooter>
-                        <SubmitButton className={"w-full"} type={"submit"}>Shortend Url</SubmitButton>
+                        <SubmitButton isLoading={isPending} className={"w-full"} type={"submit"}>Shortend Url</SubmitButton>
                     </CardFooter>
                 </Card>
             </form>
