@@ -17,7 +17,6 @@ function extractHostIfValidURL(str:string) {
 
 export async function GET(req: NextRequest, { params }: { params: Record<string, string> }) {
   const id = params.id;
-  console.log(req.ip, req.geo)
   try {
     const user = await getCurrentUser();
     const { searchParams } = new URL(req.url);
@@ -30,11 +29,9 @@ export async function GET(req: NextRequest, { params }: { params: Record<string,
 
     const { device, os, browser } = userAgent(req)
 
-    console.log(device)
 
     const ipAddress = req.headers.get('x-forwarded-for');
 
-    console.log("Ip Address : ", req.headers.get('x-forwarded-for'))
 
     const country = await getGeolocation(ipAddress!, process.env.API_INFO_TOKEN!)
 
