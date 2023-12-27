@@ -8,14 +8,12 @@ import {
 import DetailCard from "@/components/Link/DetailCard";
 import React from "react";
 
-export const runtime = "edge";
-
 export default async function AnalyticsPage(){
     const topReferrer = await getTopReferrersAnalytics()
     const topBrowsers = await getTopBrowserAnalytics();
     const topPlatforms = await getTopPlatformsAnalytics()
     const topCountries = await getTopCountriesAnalytics()
-    console.log(topReferrer)
+    
     return (
         <div className={"flex w-full h-full flex-col gap-3"}>
             <h1>Analytics</h1>
@@ -28,8 +26,6 @@ export default async function AnalyticsPage(){
                 {topBrowsers && topBrowsers.length > 0 && <DetailCard title={"Top Browsers"} description={"Clicks"} items={topBrowsers}/>}
 
                 {topPlatforms && topPlatforms.length > 0 && <DetailCard title={"Top Devices"} description={"Clicks"} items={topPlatforms} /> }
-
-
             </div>
         </div>
     )
