@@ -2,9 +2,6 @@
 import LinkTables from "@/components/Link/LinkTables";
 import React from "react";
 import {useQuery} from "@tanstack/react-query"
-import {Button} from "@nextui-org/react";
-import Link from "next/link";
-import {PlusIcon} from "lucide-react";
 // import {Button} from "@/components/ui/button";
 import {Skeleton} from "@/components/ui/skeleton";
 import ShortendUrlButton from "@/components/Link/ShortendUrlButton";
@@ -18,7 +15,9 @@ export default function Links(props: Props) {
     const {error, isPending, isFetched, data, isLoading} = useQuery({
         queryFn: async () => {
             return getLinks();
-        }, queryKey: [`links`]
+        },
+        queryKey: [`links`],
+
     });
 
 
@@ -37,9 +36,9 @@ export default function Links(props: Props) {
             {/*</Link>*/}
         </h5>
         {isLoading && <div>
-            <Skeleton className={"h-5 w-full"}/>
-            <Skeleton className={"h-24 w-full"}/>
-
+            {Array.from({length: 15}).map((_,index) => {
+                return (<Skeleton key={index} className={"h-7 w-full rounded-none"}/>)
+            })}
         </div>}
         {isFetched && !data && <div>You don&apos;t have links</div>}
         {data && <LinkTables links={data}/>}
