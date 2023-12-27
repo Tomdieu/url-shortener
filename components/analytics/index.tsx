@@ -62,7 +62,7 @@ export default function Analytics() {
     })
 
     useEffect(() => {
-        refetch();
+        refetch().then(r => {} );
     }, [year, refetch]);
 
 
@@ -77,7 +77,7 @@ export default function Analytics() {
                         <SelectGroup>
                             <SelectLabel>Year</SelectLabel>
                             {listYear.map((year) => (
-                                <SelectItem value={year.toString()}>{year}</SelectItem>
+                                <SelectItem key={year} value={year.toString()}>{year}</SelectItem>
                             ))}
                         </SelectGroup>
                     </SelectContent>

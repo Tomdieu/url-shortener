@@ -85,13 +85,13 @@ const LinkDetail = async ({ params, searchParams }: Props) => {
 
                 <div className="mt-8 space-y-6">
                     <p className="mt-2 text-center text-sm text-gray-600">
-                        We couldn't find the page you're looking for. Click the button below to return to the homepage.
+                        We couldn&apos;t find the page you&apos;re looking for. Click the button below to return to the homepage.
                     </p>
                     <Button
                         className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
 
                     >
-                        <Link href="/dashboard/links/">Return to Links Page</Link>
+                        <Link href={"/dashboard/links/"}>Return to Links Page</Link>
                     </Button>
                 </div>
             </div>
