@@ -27,7 +27,6 @@ const Dashboard = async (props: Props) => {
 
     const chartData = await getChartsLinks()
 
-    console.log("Chart Data : ",chartData)
 
     return (
         <div className="flex flex-1 flex-col">
