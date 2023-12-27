@@ -87,7 +87,7 @@ export default function Analytics() {
             <div className={"flex flex-col gap-2 w-full h-[500px]"}>
 
                 {!isLoading && (
-                    <CustomLineChart type={"monotone"} tooltip={true} xDataKey={"timestamp"} data={analyticsData}
+                    <CustomLineChart type={"monotone"} tooltip={true} xDataKey={"timestamp"} data={analyticsData!}
                                      datakey={"clicks"} fill={"#000"}
                                      className={"flex-1 h-full"} />
                 )}
