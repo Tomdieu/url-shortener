@@ -1,5 +1,4 @@
-"use client";
-import { Button } from "@nextui-org/react";
+import NextUiButton from "@/components/Btn";
 import Link from "next/link";
 import React from "react";
 
@@ -14,20 +13,20 @@ const AuthPage = (props: Props) => {
         <h1 className="text-3xl font-bold text-center my-5">Get Started</h1>
         <div className="container mx-auto flex gap-2 items-center justify-arround">
           <Link href={"/auth/login"} className="flex-1 flex">
-            <Button className="flex-1 bg-black hover:bg-black/80 text-white py-6 font-semibold">
+            <NextUiButton className="flex-1 bg-black hover:bg-black/80 text-white py-6 font-semibold">
               Log in
-            </Button>
+            </NextUiButton>
           </Link>
           <Link href={"/auth/register"} className="flex-1 flex">
-            <Button className="flex-1 bg-black hover:bg-black/80 text-white py-6 font-semibold">
+            <NextUiButton className="flex-1 bg-black hover:bg-black/80 text-white py-6 font-semibold">
               Register
-            </Button>
+            </NextUiButton>
           </Link>
         </div>
       </div>
       <div className="flex my-5 flex-col items-center">
         <h5 className="text-md font-bold">Trix Url</h5>
-        <p>Copyright &copy; {new Date().getFullYear()} <span className="font-bold"><Link target="_blank" href="https://github.com">Tomdieu</Link></span> </p>
+        <p>Copyright &copy; {new Date().getFullYear()} <span className="font-bold"><Link target="_blank" href="https://github.com/Tomdieu/url-shortener">Trix Url</Link></span> </p>
       </div>
     </div>
   );
