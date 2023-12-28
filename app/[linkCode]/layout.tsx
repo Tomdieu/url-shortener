@@ -23,22 +23,26 @@ export async function generateMetadata(
 
     const {title,description,image} = extractedMetaData
 
+    console.log(extractedMetaData)
+
     const {short,original}=link.data!
     // process.env.URL+'/icon.png'
+
+    console.log([image,process.env.URL+'/icon.png', ...previousImages])
     return {
-        title: process.env.URL+"/"+linkCode,
+        title: title||process.env.URL+"/"+linkCode,
         description:"Total Clicks : "+link.data?.clicks.length,
         openGraph: {
-            images: [image,process.env.URL+'/icon.png', ...previousImages],
-            description:"Total Clicks : "+link.data?.clicks.length,
-            title:original,
+            images: [image || process.env.URL+'/icon.png'],
+            description:description +" Total Clicks : "+link.data?.clicks.length,
+            title:title||original,                                                      
             url:process.env.URL,
             tags:["Trix Url",original]
         },
         twitter:{
-            images: [image,process.env.URL+'/icon.png', ...previousImages],
-            description:"Total Clicks : "+link.data?.clicks.length,
-            title:original,
+            images: [image || process.env.URL+'/icon.png'],
+            description:description + " Total Clicks : "+link.data?.clicks.length,
+            title:title||original,
         }
     }
 }
