@@ -10,7 +10,7 @@ import { useTheme } from 'next-themes'
 const socialMediaLinks = [
   {
     label: 'Tomdieu github account',
-    href: 'https://github.com/Tomdieu',
+    href: 'https://github.com/Tomdieu/url-shortener',
     icon: <Github className="text-stone-900 dark:text-stone-50 hover:text-blue-500 transition ease-in rounded-sm w-5 h-5" />,
   },
   {
@@ -33,13 +33,15 @@ const Footer = () => {
   return (
     <footer className="border-t dark:bg-stone-900 dark:border-t-stone-700 dark:shadow w-full">
       <div className="py-8 px-4 container w-full">
-        <div className="flex items-center gap-8">
+        <div className="flex flex-col sm:flex-row items-center gap-8">
           <div className="flex items-center gap-3 w-full">
             <div className="flex flex-col md:flex-row">
-              <Image src={!isDark ? "/logo.png" : "/logo-white-icon.png"} width={500} height={500} alt='Trix Url' className='w-20 h-20' />
+            <Image src={"/icon.png"} width={500} height={500} alt='Trix Url' className='w-10 h-10 sm:w-16 sm:h-16' />
+
+              {/* <Image src={!isDark ? "/logo.png" : "/logo-white-icon.png"} width={500} height={500} alt='Trix Url' className='w-20 h-20' /> */}
               <div>
-                <h2 className="text-xl font-bold mb-4">About Us</h2>
-                <p className="text-stone-400 dark:text-stone-50 text-sm whitespace-pre-line overflow-hidden">
+                <h2 className="text-base lg:text-xl font-bold mb-4">About Us</h2>
+                <p className="text-stone-400 dark:text-stone-50 text-xs lg:text-sm whitespace-pre-line overflow-hidden">
                   We are a URL shortener service that helps you shorten your long{"\n"}
                   URLs and track their performance.
                 </p>
@@ -47,8 +49,8 @@ const Footer = () => {
             </div>
 
             <div className="flex-1">
-              <h2 className="text-xl font-bold mb-4">Contact</h2>
-              <p className="text-stone-400 dark:text-stone-50 text-sm">
+              <h2 className="text-base lg:text-xl font-bold mb-4">Contact</h2>
+              <p className="text-stone-400 dark:text-stone-50 text-xs lg:text-sm">
                 Email: <a href="mailto:ivantom.python@gmail.com" className='font-bold'>ivantom.python@gmail.com</a>
                 <br />
                 Address: Yaounde, Cameroon
