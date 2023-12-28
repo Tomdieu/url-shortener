@@ -26,7 +26,7 @@ export default async function AnalyticsPage(){
 
                 {topBrowsers && topBrowsers.length > 0 && <DetailCard title={"Top Browsers"} description={"Clicks"} items={topBrowsers}/>}
 
-                {topPlatforms && topPlatforms.length > 0 && <DetailCard title={"Top Devices"} description={"Clicks"} items={topPlatforms} /> }
+                {topPlatforms && topPlatforms.length > 0 && <DetailCard title={"Top Platforms"} description={"Clicks"} items={topPlatforms} /> }
             </div>
         </div>
     )
