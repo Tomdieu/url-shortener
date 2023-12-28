@@ -57,8 +57,6 @@ export default function Analytics() {
             return getAllMonthsAnalyticsByYear(year)
         },
         enabled:data != null,
-
-
     })
 
     useEffect(() => {

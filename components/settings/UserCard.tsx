@@ -9,7 +9,7 @@ import {Input} from "@/components/ui/input";
 import {useMutation} from "@tanstack/react-query";
 import {User} from "@prisma/client";
 import SubmitButton from "@/components/SubmitButton";
-import {wait} from "next/dist/lib/wait";
+// import {wait} from "next/dist/lib/wait";
 import {toast} from "react-hot-toast";
 import updateUser from "@/lib/updateUser";
 
@@ -30,7 +30,7 @@ export default function UserCard({user}: UserCardProps) {
     const {data, mutate, isPending, isSuccess} = useMutation({
         mutationKey: ["update-user"],
         mutationFn: async (value: UserType) => {
-            return updateUser({name:value.name,email:value.email,password:value.password})
+            return updateUser({name:value.name!,email:value.email,password:value.password})
         }
     })
 
@@ -83,7 +83,7 @@ export default function UserCard({user}: UserCardProps) {
                             <FormItem>
                                 <FormLabel>Password</FormLabel>
                                 <FormControl>
-                                    <Input autoCorrect={"off"} type={"password"} placeholder={"Password"} {...field} />
+                                    <Input disabled={Boolean(!user.hashedPassword)}  autoCorrect={"off"} type={"password"} placeholder={"Password"} {...field} />
                                 </FormControl>
                                 <FormDescription>
 
@@ -95,7 +95,7 @@ export default function UserCard({user}: UserCardProps) {
                             <FormItem>
                                 <FormLabel>Confirm Password</FormLabel>
                                 <FormControl>
-                                    <Input autoCorrect={"off"} type={"password"}
+                                    <Input disabled={Boolean(!user.hashedPassword)} autoCorrect={"off"} type={"password"}
                                            placeholder={"Confirm Password"} {...field} />
                                 </FormControl>
                                 <FormDescription>

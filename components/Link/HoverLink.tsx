@@ -19,8 +19,6 @@ export default function HoverLink({url}:HoverLinkProps){
         queryKey:["link","preview",url]
     })
 
-
-
     return (
         <HoverCard>
             <HoverCardTrigger asChild>

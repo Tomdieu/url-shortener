@@ -9,6 +9,7 @@ import DetailCard from "@/components/Link/DetailCard";
 import React from "react";
 
 export default async function AnalyticsPage(){
+    
     const topReferrer = await getTopReferrersAnalytics()
     const topBrowsers = await getTopBrowserAnalytics();
     const topPlatforms = await getTopPlatformsAnalytics()
