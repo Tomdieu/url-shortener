@@ -38,7 +38,7 @@ const Header = async ({user}: HeaderProps) => {
             <div className={"items-center flex justify-end space-x-2"}>
                 {user && (
                     <Link href={"/dashboard"}>
-                <Button variant="ghost" className="animate-bounce hover:animate-none border-none transition-transform transform active:scale-90 hover:bg-stone-800 text-stone-50 rounded-full bg-stone-700 ">
+                <Button variant="ghost" className="border-none transition-transform transform active:scale-90 hover:bg-stone-700 text-stone-50 rounded-full bg-stone-800 ">
                     Dashboard
                 </Button>
                 </Link>
@@ -53,7 +53,7 @@ const Header = async ({user}: HeaderProps) => {
                         <Button className="rounded-full text-white bg-blue-600 hover:bg-blue-300">Login</Button>
                     </Link>
                     <Link href={"/auth/register"}>
-                        <Button className="rounded-full animate-bounce hover:animate-none text-white bg-black/80 hover:bg-black/70">Register</Button>
+                        <Button className="rounded-full text-white bg-black/80 hover:bg-black/70">Register</Button>
                     </Link>
                 </div>)}
 
