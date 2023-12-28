@@ -12,7 +12,8 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { LINKS } from "@/constants";
-import toast from "react-hot-toast";
+import { toast } from "react-hot-toast";
+
 
 type Props = {};
 
@@ -47,8 +48,11 @@ const RegisterForm = (props: Props) => {
     })
       .then((res) => res.json())
       .then((data) => {
+        toast.success("Account Created Successfully", { position: "top-center" });
+        router.push("/auth/login");
       })
       .catch((error) => {
+        toast.error("An error occurred")
         console.error("An error occurred:", error);
       })
       .finally(() => {
