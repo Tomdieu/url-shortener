@@ -94,16 +94,16 @@ export default function UpdateUrl({ link }: UpdateUrlProps) {
                                             <Copy className="h-4 w-4" />
                                             <span className="sr-only">Copy shortened URL</span>
                                         </Button>
-                                        <FacebookShareButton url={urlToShare}>
+                                        <FacebookShareButton url={urlToShare+"?referrer=facebook.com"}>
                                         <Facebook className="h-4 w-4" />
                                             <span className="sr-only">Share on Facebook</span>
                                         </FacebookShareButton>
-                                        <TwitterShareButton url={urlToShare}>
+                                        <TwitterShareButton url={urlToShare+"?referrer=x.com"}>
                                         <TwitterIcon className="h-4 w-4" />
                                             <span className="sr-only">Share on Twitter</span>
                                         </TwitterShareButton>
                                         
-                                        <LinkedinShareButton url={urlToShare}>
+                                        <LinkedinShareButton url={urlToShare+"?referrer=linkedin.com"}>
                                         <LinkedinIcon className="h-4 w-4" />
                                             <span className="sr-only">Share on Linkedin</span>
                                         </LinkedinShareButton>
