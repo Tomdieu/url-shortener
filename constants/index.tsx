@@ -31,7 +31,7 @@ label: "Analytics",
     {
         label: "Settings",
         icon:<FiSettings className="w-5 h-5" />,
-        url: "/dashboard/settings"
+        url: "/dashboard/settings/profile"
     },
     // {
     //     label:"Pricing",

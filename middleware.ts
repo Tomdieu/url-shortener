@@ -5,23 +5,24 @@ export type { NextRequestWithAuth } from "next-auth/middleware";
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
+
 export default withAuth({
   pages: {
     signIn: '/auth/login',
     signOut: '/auth'
   },
   secret: process.env.NEXTAUTH_SCRET,
+  callbacks:{
+    authorized:(param)=>{
+      if(param.token) return true;
+      return false;
+    }
+  }
 });
 
 export const config = {
   matcher: [
-    "/dashboard",
+    "/dashboard/:path*",
   ]
 };
 
-export function middleware(request: NextRequest) {
-  const pathName = request.nextUrl.pathname
-  if("/dashboard/settings" === pathName){
-    return NextResponse.rewrite(new URL('/dashboard/settings/profile', request.url))
-  }
-}

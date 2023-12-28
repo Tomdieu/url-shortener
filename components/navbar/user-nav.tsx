@@ -62,7 +62,7 @@ export default function UserNav({ user }: UserNavProps) {
                         {/*<DropdownMenuShortcut>⌘B</DropdownMenuShortcut>*/}
                     </DropdownMenuItem>
 
-                    <DropdownMenuItem className="flex gap-2">
+                    <DropdownMenuItem className="flex gap-2" onClick={() => router.push("/dashboard/settings/profile")}>
                         <Settings size={16} className="text-black dark:text-white" />
                         Settings
                         {/*<DropdownMenuShortcut>⌘S</DropdownMenuShortcut>*/}

@@ -13,12 +13,16 @@ import {FiMousePointer} from "react-icons/fi";
 import {formatNumber} from "@/lib/formatNumber";
 import {formaliseDay, getChartsLinks} from "@/lib";
 import CustomLineChart from "@/components/charts/CustomLineChart";
+import { redirect } from "next/navigation";
 
 type Props = {};
 
 
 const Dashboard = async (props: Props) => {
     const user = await getCurrentUser()
+
+    if(!user) return redirect("/auth/login?callbackUrl=%2Fdashboard")
+
     const numberOfShortendLinks = await getNumberOfShortenLinks(user?.id as string);
     const topShortendUrls = await getTopShortenedUrls(user?.id as string)
     const averageClickRate = await getAverageClickRate(user?.id as string)
@@ -26,7 +30,6 @@ const Dashboard = async (props: Props) => {
     const chartLinkData = await getChartLinkData();
 
     const chartData = await getChartsLinks()
-
 
     return (
         <div className="flex flex-1 flex-col">
