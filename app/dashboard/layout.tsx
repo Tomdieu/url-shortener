@@ -8,8 +8,17 @@ import DashboardBreadCumb from "@/components/DashboardBreadCumb";
 export const metadata: Metadata = {
   title: "Trix Url | Dashboard",
   description: "Trix Url",
+  openGraph: {
+    title: "Trix Url | Dashboard",
+    description: "Unlock the power of concise links with Trix URL! 🚀 Transform long URLs into sleek, shareable gems effortlessly. Your dashboard is the control center, where simplicity meets analytics. Track clicks, manage your links, and navigate the world of streamlined URLs with ease. Trix URL: Link Shortening, Elevated. #URLShortener #TrixURL",
+    type:"website"
+  },
+  twitter: {
+    title: "Trix Url | Dashboard",
+    description: "Unlock the power of concise links with Trix URL! 🚀 Transform long URLs into sleek, shareable gems effortlessly. Your dashboard is the control center, where simplicity meets analytics. Track clicks, manage your links, and navigate the world of streamlined URLs with ease. Trix URL: Link Shortening, Elevated. #URLShortener #TrixURL"
+  }
 };
-  
+
 export default async function DashboardLayout({
   children,
 }: {
@@ -26,8 +35,8 @@ export default async function DashboardLayout({
         <div className="w-full rounded-none flex flex-col flex-1 overflow-y-auto dark:bg-[#18181B]">
           <NavBar user={currentUser} />
           <div className="flex-1 px-3 w-full dark:bg-[#18181B]">
-              <DashboardBreadCumb/>
-              {children}
+            <DashboardBreadCumb />
+            {children}
           </div>
         </div>
       </div>
