@@ -19,7 +19,7 @@ export default function ThemeButton() {
   }, [theme, setTheme]);
 
   return (
-    <Button variant="outline" size="icon" onClick={toggleTheme}>
+    <Button variant="outline" size="icon" className="border-none shadow-none rounded-full" onClick={toggleTheme}>
       {currentTheme === 'dark' ? <Sun /> : <Moon />}
     </Button>
   )
