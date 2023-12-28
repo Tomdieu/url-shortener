@@ -10,7 +10,19 @@ type AuthLayoutProps = {
 
 export const metadata: Metadata = {
   title: "Trix Url | Auth",
-  description: "Authenticate",
+  description:"Welcome to Trix Url, where security meets simplicity! Our authentication page is your gateway to a seamless and trustworthy URL shortening experience. Safeguarding your links begins here, with state-of-the-art encryption and user-friendly authentication. Join our community of savvy users, and enjoy the peace of mind that comes with knowing your shortened URLs are in safe hands. Fast, reliable, and secure - because your privacy matters",
+  openGraph:{
+    title:"Trix Url | Auth",
+    description:"Welcome to Trix Url, where security meets simplicity! Our authentication page is your gateway to a seamless and trustworthy URL shortening experience. Safeguarding your links begins here, with state-of-the-art encryption and user-friendly authentication. Join our community of savvy users, and enjoy the peace of mind that comes with knowing your shortened URLs are in safe hands. Fast, reliable, and secure - because your privacy matters",
+    url:"https://trixurl.vercel.app/auth",
+    type:"website"
+  },
+  twitter:{
+    title:"Trix Url | Auth",
+    description:"Welcome to Trix Url, where security meets simplicity! Our authentication page is your gateway to a seamless and trustworthy URL shortening experience. Safeguarding your links begins here, with state-of-the-art encryption and user-friendly authentication. Join our community of savvy users, and enjoy the peace of mind that comes with knowing your shortened URLs are in safe hands. Fast, reliable, and secure - because your privacy matters",
+    creator: '@tomdieu ivan',
+    images: ['https://trixurl.vercel.app/icon.png'],
+  }
 };
 
 const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
