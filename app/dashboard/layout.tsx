@@ -4,6 +4,7 @@ import getCurrentUser from "@/lib/getCurrentUser";
 import { Metadata } from "next";
 import React from "react";
 import DashboardBreadCumb from "@/components/DashboardBreadCumb";
+import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
   title: "Trix Url | Dashboard",
@@ -25,6 +26,10 @@ export default async function DashboardLayout({
   children: React.ReactNode;
 }) {
   const currentUser = await getCurrentUser();
+
+  if(!currentUser){
+    return redirect("/auth/login")
+  }
 
   return (
     <div className="h-screen w-screen flex overflow-hidden font-poppins">
