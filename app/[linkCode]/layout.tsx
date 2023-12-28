@@ -33,7 +33,7 @@ export async function generateMetadata(
             description:"Total Clicks : "+link.data?.clicks.length,
             title:original,
             url:process.env.URL,
-            tags:["Trix Url",original],
+            tags:["Trix Url",original]
         },
         twitter:{
             images: [image,process.env.URL+'/icon.png', ...previousImages],
