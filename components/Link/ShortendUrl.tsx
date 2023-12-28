@@ -50,10 +50,16 @@ const UrlShortenerForm: React.FC<UrlShortenerFormProps> = ({showBorder=true}:Url
         // const url =await create(value)
         mutate(value,{
             onSuccess:(res)=>{
-                queryClient.invalidateQueries({queryKey:["links"],exact:true})
-                // router.refresh()
-                toast.success("Url Shorten Successfully")
-                router.push("/dashboard/links/"+res?.data?.short)
+                if(res.success){
+                    queryClient.invalidateQueries({queryKey:["links"],exact:true})
+                    // router.refresh()
+                    toast.success("Url Shorten Successfully")
+                    router.push("/dashboard/links/"+res?.data?.short)
+                }else{
+
+                    toast.error("Something went wrong")
+                }
+                
 
             }
         })
