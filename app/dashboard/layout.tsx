@@ -27,9 +27,9 @@ export default async function DashboardLayout({
 }) {
   const currentUser = await getCurrentUser();
 
-  if(!currentUser){
-    return redirect("/auth/login")
-  }
+  // if(!currentUser){
+  //   return redirect("/auth/login")
+  // }
 
   return (
     <div className="h-screen w-screen flex overflow-hidden font-poppins">
