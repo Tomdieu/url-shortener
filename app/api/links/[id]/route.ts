@@ -42,6 +42,8 @@ export async function GET(req: NextRequest, { params }: { params: Record<string,
 
         await prisma.click.create({ data: { linkId: link.id, ipAddress, country, referrer, device:deviceType || device.type, os: os.name, browser: browser?.name } });
       }
+    }else{
+      return NextResponse.json({"message":`Not found`},{status:404})
     }
     return NextResponse.json(link, { status: 200 });
   } catch (error) {
