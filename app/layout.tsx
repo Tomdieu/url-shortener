@@ -8,6 +8,7 @@ import React from "react";
 import NextThemeProvider from "@/providers/NextThemeProvider";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import { JSONLD } from "@/constants/jsonld";
+// import { Analytics } from "@vercel/analytics/react"
 
 const poppins = localFont({
   src: [
@@ -30,7 +31,7 @@ const poppins = localFont({
 export const metadata: Metadata = {
   title: "Trix URL - Your Ultimate URL Shortener",
   description:
-    "Shorten and manage URLs with ease using Trix URL, the ultimate link shortening tool. Track analytics, customize links, and simplify your online experience.",
+    "Shorten and manage URLs with ease using Trix URL, the ultimate link shortening tool created by Tomdieu Ivan. Track analytics, customize links, and simplify your online experience.",
   authors: [{ name: "Tomdieu Ivan", url: "https://github.com/tomdieu" }],
   creator: "Tomdieu Ivan",
   metadataBase: new URL("https://trixurl.vercel.app"),
@@ -50,20 +51,20 @@ export const metadata: Metadata = {
   ],
   twitter: {
     card: "summary_large_image",
-    title: "TrixUrl",
+    title: "Trix URL - Your Ultimate URL Shortener",
     description:
-      "Shorten and manage URLs with ease using Trix URL, the ultimate link shortening tool. Track analytics, customize links, and simplify your online experience.",
+      "Shorten and manage URLs with ease using Trix URL, created by Tomdieu Ivan. The ultimate tool for link shortening, tracking analytics, and customizing links.",
     creator: "@tomdieu ivan",
     images: ["https://trixurl.vercel.app/icon.png"],
   },
   openGraph: {
     title: "Trix URL - Your Ultimate URL Shortener",
     description:
-      "Shorten and manage URLs with ease using Trix URL, the ultimate link shortening tool. Track analytics, customize links, and simplify your online experience.",
+      "Shorten and manage URLs with ease using Trix URL, created by Tomdieu Ivan. The ultimate link shortening tool for analytics and link management.",
     images: ["https://trixurl.vercel.app/icon.png"],
     creators: ["@tomdieu ivan"],
     url: "https://trixurl.vercel.app",
-    siteName: "Trix Url",
+    siteName: "Trix URL",
   },
   verification: {
     google: "oL_X940seqpUmflSfAjNxmf39DH707nkgHr__ALLx7c",
@@ -78,8 +79,15 @@ export const metadata: Metadata = {
     "raccourcisseur d'URL",
     "gestion de liens",
     "suivi de liens",
+    "Tomdieu Ivan",
+    "Ivan Gottfried",
+    "ivantom",
+    "Ivan URL shortener",
+    "Ivan link tool",
+    "Trix URL shortening tool",
   ],
 };
+
 
 export const viewport = {
   themeColor: [
