@@ -12,15 +12,15 @@ type CustomLineChartProps = {
     fill?:string;
     tooltip?:boolean;
     xDataKey:DataKey<any>;
-
+    height?:number;
 }
 
-export default function CustomLineChart({data,className,type="bump",xDataKey,tooltip=false,datakey,fill="#8884d8"}:CustomLineChartProps){
+export default function CustomLineChart({data,className,type="bump",xDataKey,tooltip=false,datakey,fill="#8884d8",height=300}:CustomLineChartProps){
     const {theme} = useTheme()
 
     fill = theme == "dark" ?"#fff":fill
 return (
-    <ResponsiveContainer className={className}>
+    <ResponsiveContainer width="100%" height={height} className={className}>
         <LineChart data={data}>
             {tooltip && (
                 <Tooltip />

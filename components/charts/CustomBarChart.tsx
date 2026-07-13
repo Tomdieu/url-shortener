@@ -21,7 +21,7 @@ export default function CustomBarChart({barSize=30,xDataKey,data,dataKey,fill="#
 
 
     return (
-        <ResponsiveContainer className={className}>
+        <ResponsiveContainer width="100%" height={300} className={className}>
             <BarChart data={data}>
                 {/* <CartesianGrid strokeDasharray="3 3" /> */}
 
