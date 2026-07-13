@@ -1,7 +1,7 @@
 "use client"
 
 
-import { Link as LinkType } from "@prisma/client"
+import { Link as LinkType } from "@/lib/generated/prisma/client"
 import { ColumnDef } from "@tanstack/react-table"
 import Link from "next/link"
 import { DataTable } from "../DataTable"
@@ -18,7 +18,7 @@ import { Button } from "../ui/button"
 import { Checkbox } from "../ui/checkbox"
 import { useState } from "react"
 import { toast } from "react-hot-toast";
-import {redirect} from "next/navigation"
+import {redirect, useRouter} from "next/navigation"
 import HoverLink from "@/components/Link/HoverLink";
 
 
@@ -122,7 +122,20 @@ const columns: ColumnDef<LinkType>[] = [
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem className="flex gap-2 cursor-pointer"><RefreshCcw size={14} />Update</DropdownMenuItem>
-            <DropdownMenuItem className="flex gap-2 bg-red-100 cursor-pointer dark:bg-transparent"><Trash2 size={14} color={"red"} />Delete</DropdownMenuItem>
+            <DropdownMenuItem
+              className="flex gap-2 cursor-pointer text-red-600 dark:text-red-400"
+              onClick={async () => {
+                const res = await fetch(`/api/links/${short}?id=${short}`, { method: 'DELETE' });
+                if (res.ok) {
+                  toast.success('Link deleted');
+                  window.location.reload();
+                } else {
+                  toast.error('Failed to delete link');
+                }
+              }}
+            >
+              <Trash2 size={14} /> Delete
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )
@@ -138,6 +151,13 @@ type LinkTablesProps = {
 
 
 export default function LinkTables({ links }: LinkTablesProps) {
+  const router = useRouter()
 
-  return <DataTable columns={columns} data={links} />
+  return (
+    <DataTable
+      columns={columns}
+      data={links}
+      onRowClick={(row) => router.push(`/dashboard/links/${row.short}`)}
+    />
+  )
 }
