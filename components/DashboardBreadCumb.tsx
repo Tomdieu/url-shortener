@@ -1,28 +1,44 @@
-"use client"
-import React from "react";
-import {Breadcrumbs, BreadcrumbItem} from "@nextui-org/react";
-import {usePathname} from "next/navigation";
+'use client'
 
-export default function DashboardBreadCumb(){
+import React from 'react'
+import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 
-    const path = usePathname();
-    const sections = path.split("/")
+export default function DashboardBreadCumb() {
+  const path = usePathname()
+  const sections = path.split('/').filter(Boolean)
 
-    const buildUrl = (index:number)=>{
-        const _path = [];
-        for(let i=0;i<=index;i++){
-            _path.push(sections[i])
-        }
-
-        return _path.join("/")
+  const buildUrl = (index: number) => {
+    const _path = []
+    for (let i = 0; i <= index; i++) {
+      _path.push(sections[i])
     }
+    return '/' + _path.join('/')
+  }
 
-    return (
-        <Breadcrumbs className={"mt-3"}>
-            {sections.map((section,index)=>{
-                return (<BreadcrumbItem className={"py-3 text-xl font-poppins font-bold"} href={buildUrl(index)} key={section}>{section}</BreadcrumbItem>)
-            })}
-        </Breadcrumbs>
-    )
-
+  return (
+    <nav className="mb-4 flex items-center gap-1.5 text-sm">
+      {sections.map((section, index) => {
+        const isLast = index === sections.length - 1
+        return (
+          <React.Fragment key={section}>
+            {index > 0 && (
+              <span style={{ color: 'var(--ink-muted)' }}>/</span>
+            )}
+            {isLast ? (
+              <span className="font-medium capitalize">{section}</span>
+            ) : (
+              <Link
+                href={buildUrl(index)}
+                className="capitalize hover:underline underline-offset-4 transition-colors"
+                style={{ color: 'var(--ink-muted)' }}
+              >
+                {section}
+              </Link>
+            )}
+          </React.Fragment>
+        )
+      })}
+    </nav>
+  )
 }

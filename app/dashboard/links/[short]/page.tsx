@@ -11,18 +11,19 @@ import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import CustomLineChart from "@/components/charts/CustomLineChart";
 import HoverLink from "@/components/Link/HoverLink";
-import { formaliseDay, formaliseYear, formaliseMonth, getUrlTopReferreDomain, getUrlTopLocations, getUrlTopDevices, getTopBrowser, minus1Year } from '@/lib';
+import { formaliseDay, formaliseYear, formaliseMonth, minus1Year } from '@/lib/utils/analytics';
+import { getUrlTopReferreDomain, getUrlTopLocations, getUrlTopDevices, getTopBrowser } from '@/lib';
 import { Button } from '@/components/ui/button';
 import { AlertTriangle } from 'lucide-react';
 import Link from "next/link"
 
 type Props = {
-    params: { short: string }
-    searchParams: { [key: string]: string | string[] | undefined }
+    params: Promise<{ short: string }>
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
 export async function generateMetadata({ params, searchParams }: Props, parent: ResolvingMetadata): Promise<Metadata> {
-    const shortCode = params.short;
+    const { short: shortCode } = await params;
     try {
         const { success, data } = await getLink(shortCode);
         if (success && data) {
@@ -58,20 +59,20 @@ export async function generateMetadata({ params, searchParams }: Props, parent: 
 
         return {
             metadataBase: new URL(process.env.URL as string),
-            title: "Trix Url | Link",
-            description: "Trix Url",
+            title: "Trix URL | Link",
+            description: "Trix URL",
         };
     } catch (e) {
         return {
-            title: "Trix Url | Link",
-            description: "Trix Url",
+            title: "Trix URL | Link",
+            description: "Trix URL",
         };
     }
 
 }
 
 const LinkDetail = async ({ params, searchParams }: Props) => {
-    const { short } = params;
+    const { short } = await params;
 
     const link = await getLink(short)
 
@@ -148,7 +149,7 @@ const LinkDetail = async ({ params, searchParams }: Props) => {
 
                     <div className="flex flex-1 flex-col gap-4 h-full">
                         
-                    <CustomLineChart xDataKey={"timestamp"} data={formaliseDay(dayDetail)} datakey={"clicks"} fill={"#000"} className={"flex-1 w-[400px] max-w-[500px] max-h-[400px]"} tooltip={true}/>
+                    <CustomLineChart xDataKey={"timestamp"} data={formaliseDay(dayDetail)} datakey={"clicks"} fill={"#000"} className={"w-full"} height={350} tooltip={true}/>
 
                     </div>
                 </div>

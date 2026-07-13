@@ -1,47 +1,45 @@
-"use client";
-import { User } from "@prisma/client";
-import React from "react";
-import {
-  Button,
-} from "@nextui-org/react";
-import { FiMenu} from "react-icons/fi";
+'use client'
 
-import UserNav from "./user-nav";
-import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
-import Sidebar from "../sidebar";
+import { User } from '@/lib/generated/prisma/client'
+import UserNav from './user-nav'
+import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
+import Sidebar from '../sidebar'
+import { Menu } from 'lucide-react'
 
 type NavBarProps = {
-  user?: User | null;
-};
+  user?: User | null
+}
 
 const NavBar: React.FC<NavBarProps> = ({ user }) => {
   return (
-    <div className="dark:bg-[#18181B] dark:text-white dark:border-b-white/20 sticky top-0 z-50 bg-white bg-opacity-40 backdrop-blur-md shadow-lg py-2 md:py-4 border-b-1 px-4 w-full z-99">
-      <div className="flex justify-between items-center">
-        <div className="flex items-center gap-1">
+    <header
+      className="sticky top-0 z-40 w-full border-b backdrop-blur-lg"
+      style={{
+        borderColor: 'var(--border)',
+        background: 'color-mix(in srgb, var(--surface) 80%, transparent)',
+      }}
+    >
+      <div className="flex h-14 items-center justify-between px-4 md:px-6">
+        <div className="flex items-center gap-3">
           <Sheet>
-            <SheetTrigger asChild>
-              <Button aria-label="menu"  isIconOnly className="bg-transparent sm:hidden">
-                <FiMenu className="w-6 h-6" />
-              </Button>
+            <SheetTrigger className="lg:hidden p-1.5 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+              <Menu className="h-5 w-5" />
             </SheetTrigger>
-            <SheetContent side={'left'} className="p-0">
+            <SheetContent side="left" className="p-0 w-64">
               <Sidebar />
             </SheetContent>
           </Sheet>
-          <h1 className="text-xl md:text-2xl font-bold cursor-pointer select-none">
-            Trix Url
-          </h1>
+          <span className="text-base font-bold tracking-tight lg:hidden">
+            Trix URL
+          </span>
         </div>
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2">
 
-            {user && <UserNav user={user} />}
-          </div>
+        <div className="flex items-center gap-3">
+          {user && <UserNav user={user} />}
         </div>
       </div>
-    </div>
-  );
-};
+    </header>
+  )
+}
 
-export default NavBar;
+export default NavBar

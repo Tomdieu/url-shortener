@@ -1,24 +1,31 @@
-"use client"
-import Link from "next/link";
-import {usePathname} from "next/navigation";
+'use client'
 
-export default function SidebarSettings(){
-    const path = usePathname()
-    const _paths = path.split('/')
-    _paths.push("")
-    const routeName = _paths.join("/")
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { User } from 'lucide-react'
 
-    const url = "/dashboard/settings/profile"
+export default function SidebarSettings() {
+  const path = usePathname()
+  const _paths = path.split('/')
+  _paths.push('')
+  const routeName = _paths.join('/')
 
-    return (
-        <div className={"flex flex-col gap-3 p-2 dark-theme rounded-sm h-full border-none shadow-none text-white select-none"}>
-            <Link href={"/dashboard/settings/profile"}>
-                <div className={`${((routeName.includes(url)))?"bg-black/90 shadow-lg text-solid-50 dark:bg-content2":"text"} rounded-md p-2.5 flex py-2.5 items-center gap-2`}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-user-round"><path d="M18 20a6 6 0 0 0-12 0"/><circle cx="12" cy="10" r="4"/><circle cx="12" cy="12" r="10"/></svg>
-                    <span>Profile</span>
-                </div>
-            </Link>
+  const url = '/dashboard/settings/profile'
 
+  return (
+    <nav className="space-y-1">
+      <Link href="/dashboard/settings/profile">
+        <div
+          className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+            routeName.includes(url)
+              ? 'bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900'
+              : 'hover:bg-zinc-100 dark:hover:bg-zinc-800'
+          }`}
+        >
+          <User className="h-4 w-4" />
+          <span>Profile</span>
         </div>
-    )
+      </Link>
+    </nav>
+  )
 }
