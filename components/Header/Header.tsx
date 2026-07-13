@@ -1,68 +1,67 @@
-// 'use client'
-// import React,{useCallback, useEffect, useState} from 'react'
 import Link from "next/link"
 import Image from 'next/image'
-import { User } from '@prisma/client'
-
+import { User } from '@/lib/generated/prisma/client'
 import UserNav from '../navbar/user-nav'
-
-import {Button} from "@/components/ui/button"
-
+import { Button } from "@/components/ui/button"
 import ThemeButton from "@/components/ThemeButton"
 
-import { Moon,Sun } from 'lucide-react'
-import { useTheme } from 'next-themes'
-
 type HeaderProps = {
-    user?:User|null
+  user?: User | null
 }
 
-const Header = async ({user}: HeaderProps) => {
-    // const { systemTheme, theme, setTheme } = useTheme();
-    // const currentTheme = theme === 'system' ? systemTheme : theme;
-    // const isDark = currentTheme === 'dark'
-    
-    // const toggleTheme = useCallback(() => {
-    //   setTheme(theme === 'dark' ? 'light' : 'dark');
-    // }, [theme, setTheme]);
+const Header = async ({ user }: HeaderProps) => {
+  return (
+    <header className="sticky top-0 z-50 w-full border-b border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-lg">
+      <div className="landing-container flex h-16 items-center justify-between">
+        <Link href="/" className="flex items-center gap-2.5">
+          <Image
+            src="/icon.png"
+            width={32}
+            height={32}
+            alt="Trix URL"
+            className="w-8 h-8"
+          />
+          <span className="text-lg font-bold tracking-tight">Trix URL</span>
+        </Link>
 
-    return (
-        <div className="dark:bg-stone-900 w-full sticky top-0 left-0 right-0 z-50 px-4 py-2 flex items-center justify-between bg-white bg-opacity-40 backdrop-blur-md rounded-none border-b dark:border-b-stone-700 dark:shadow-xl">
-            <div className="container flex items-center justify-between">
-            <div className="flex items-center gap-1">
-            <Image src={"/icon.png"} width={50} height={50} alt='Trix Url' className='w-17 h-17' />
-            <span className="text-2xl lg:text-3xl text font-poppins">Trix Url</span>
+        <nav className="hidden md:flex items-center gap-8">
+          <Link href="#features" className="text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50 transition-colors">
+            Features
+          </Link>
+          <Link href="#how-it-works" className="text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50 transition-colors">
+            How it works
+          </Link>
+        </nav>
 
-            {/* <Image src={!isDark ?"/icon.png" :"/logo-white-icon.png"} width={50} height={50} alt='Trix Url' className='w-17 h-17' /> */}
-            </div>
-            <div className={"items-center flex justify-end space-x-2"}>
-                {user && (
-                    <Link href={"/dashboard"}>
-                <Button variant="ghost" className="border-none transition-transform transform active:scale-90 hover:bg-stone-700 text-stone-50 rounded-full bg-stone-800 ">
-                    Dashboard
+        <div className="flex items-center gap-3">
+          <ThemeButton />
+          {user ? (
+            <div className="flex items-center gap-2">
+              <Link href="/dashboard">
+                <Button variant="ghost" className="rounded-full text-sm font-medium">
+                  Dashboard
                 </Button>
-                </Link>
-                )}
-                
-                <ThemeButton/>
-                {/* <Button variant="outline" size="icon" onClick={toggleTheme}>
-                {currentTheme === 'dark' ? <Sun /> : <Moon />}
-                </Button> */}
-                {Boolean(!user) && (<div className="flex item-center gap-2">
-                    <Link href={"/auth/login"}>
-                        <Button className="rounded-full text-white bg-blue-600 hover:bg-blue-300">Login</Button>
-                    </Link>
-                    <Link href={"/auth/register"}>
-                        <Button className="rounded-full text-white bg-black/80 hover:bg-black/70">Register</Button>
-                    </Link>
-                </div>)}
-
-                {user && <UserNav user={user}/>}
+              </Link>
+              <UserNav user={user} />
             </div>
-                </div>
+          ) : (
+            <div className="flex items-center gap-2">
+              <Link href="/auth/login">
+                <Button variant="ghost" className="rounded-full text-sm font-medium">
+                  Log in
+                </Button>
+              </Link>
+              <Link href="/auth/register">
+                <span className="btn-primary !px-5 !py-2 !text-sm !rounded-full cursor-pointer">
+                  Get started
+                </span>
+              </Link>
+            </div>
+          )}
         </div>
-
-    )
+      </div>
+    </header>
+  )
 }
 
 export default Header
