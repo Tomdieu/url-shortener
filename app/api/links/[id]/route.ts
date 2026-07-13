@@ -15,8 +15,8 @@ function extractHostIfValidURL(str:string) {
   return str;
 }
 
-export async function GET(req: NextRequest, { params }: { params: Record<string, string> }) {
-  const id = params.id;
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   try {
     const user = await getCurrentUser();
     const { searchParams } = new URL(req.url);
@@ -33,21 +33,30 @@ export async function GET(req: NextRequest, { params }: { params: Record<string,
     const ipAddress = req.headers.get('x-forwarded-for');
 
 
-    const country = await getGeolocation(ipAddress!, process.env.API_INFO_TOKEN!)
+    let country: string | null = null;
+    try {
+      country = await getGeolocation(ipAddress!, process.env.API_INFO_TOKEN!);
+    } catch {
+      // Geolocation is optional — don't fail the redirect
+    }
 
     // we are going to increment the link click if if exists and the owner of that url is not the one accessing it
     if (link) {
 
       if (!user || (user?.id !== link.ownerId)) {
 
-        await prisma.click.create({ data: { linkId: link.id, ipAddress, country, referrer, device:deviceType || device.type, os: os.name, browser: browser?.name } });
+        try {
+          await prisma.click.create({ data: { linkId: link.id, ipAddress, country, referrer, device:deviceType || device.type, os: os.name, browser: browser?.name } });
+        } catch {
+          // Click logging failure shouldn't block the redirect
+        }
       }
     }else{
       return NextResponse.json({"message":`Not found`},{status:404})
     }
     return NextResponse.json(link, { status: 200 });
   } catch (error) {
-    return NextResponse.json(error, { status: 404 });
+    return NextResponse.json(error, { status: 500 });
   }
 }
 

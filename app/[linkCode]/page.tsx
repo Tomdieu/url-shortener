@@ -1,69 +1,57 @@
-"use client"
-
-import {Link} from '@prisma/client';
-import {redirect} from 'next/navigation';
-import {useQuery} from "@tanstack/react-query";
-import {isMobile, isTablet} from 'react-device-detect';
+import { redirect } from 'next/navigation';
+import { headers } from 'next/headers';
+import { userAgent } from 'next/server';
+import prisma from '@/lib/prismadb';
 
 type Props = {
-    params: { linkCode: string }
+    params: Promise<{ linkCode: string }>
 }
 
-const fetchLink = (shortCode: string, referrer: string, deviceType: string): Promise<Link> => {
-    return new Promise((resolve, reject) => {
-        fetch(`/api/links/${shortCode}?referrer=${encodeURIComponent(referrer)}&deviceType=${deviceType}`, {next: {revalidate: 600}})
-            .then((res) => {
-                if (res.status == 200) {
-                    return res.json() as unknown as Link
-                } else if (res.status == 404) {
-                    throw new Error("Not found")
-                } else {
-                    throw new Error("Not found")
-                }
-            })
-            .then((data) => {
-                resolve(data);
-            })
-            .catch((err) => {
-                reject(err);
-            });
-    });
-};
-
-function getDeviceType() {
-    if (isMobile) {
-        return 'Mobile';
-    } else if (isTablet) {
-        return 'Tablet';
-    } else {
-        return 'Desktop';
+function extractHostIfValidURL(str: string) {
+    const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
+    if (urlRegex.test(str)) {
+        const url = new URL(str);
+        return url.host;
     }
+    return str;
 }
 
+export default async function LinkDetail({ params }: Props) {
+    const { linkCode } = await params;
+    const hdrs = await headers();
 
-const LinkDetail = ({params}: Props) => {
-    const deviceType = getDeviceType()
-    const {data, isLoading, error, isError} = useQuery({
-        queryKey: ["link-preview", params.linkCode],
-        queryFn: () => {
-            return fetchLink(params.linkCode, document.referrer || "Direct", deviceType);
-        },
-    })
+    const link = await prisma.link.findFirst({ where: { short: linkCode } });
 
-
-    if (isLoading) {
-        return <div>Loading...</div>
+    if (!link) {
+        return (
+            <div className="flex h-full w-full items-center justify-center">
+                <p>Link not found</p>
+            </div>
+        );
     }
 
-    if (isError) {
-        return (<div className="flex h-full w-full items-center justify-center">
-            <p className={"text"}>Error : {error.message}</p>
-        </div>)
+    const referrer = extractHostIfValidURL(
+        hdrs.get('referer') || 'Direct'
+    );
+
+    const ipAddress = hdrs.get('x-forwarded-for');
+
+    const ua = userAgent({ headers: hdrs });
+
+    try {
+        await prisma.click.create({
+            data: {
+                linkId: link.id,
+                ipAddress,
+                referrer,
+                device: ua.device.type || 'desktop',
+                os: ua.os.name || 'unknown',
+                browser: ua.browser.name || 'unknown',
+            },
+        });
+    } catch {
+        // Click logging failure shouldn't block the redirect
     }
-    if (data && data.original) {
-        return redirect(data.original)
-    }
+
+    redirect(link.original);
 }
-
-
-export default LinkDetail;

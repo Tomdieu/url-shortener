@@ -1,8 +1,9 @@
 import { NextRequest,NextResponse } from "next/server";
 import {getLinkChartDetail} from "@/lib/getLinkChartDetail";
 
-export async function GET(req:NextRequest,{params}:{params:Record<string,string>}){
-    const short = params.id;
+export async function GET(req:NextRequest,{params}:{params:Promise<{id:string}>}){
+    const { id } = await params;
+    const short = id;
     const url = new URL(req.url);
     const {searchParams} = url
 
