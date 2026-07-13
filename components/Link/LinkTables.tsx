@@ -18,8 +18,9 @@ import { Button } from "../ui/button"
 import { Checkbox } from "../ui/checkbox"
 import { useState } from "react"
 import { toast } from "react-hot-toast";
-import {redirect, useRouter} from "next/navigation"
+import {useRouter} from "next/navigation"
 import HoverLink from "@/components/Link/HoverLink";
+import QRCodeDialog from "@/components/Link/QRCodeMenu";
 
 
 const LinkComponent = ({ link }: { link: string }) => {
@@ -112,6 +113,7 @@ const columns: ColumnDef<LinkType>[] = [
             >
               <Clipboard size={12} /> Copy
             </DropdownMenuItem>
+            <QRCodeDialog url={url} />
             <DropdownMenuItem
               className="flex gap-2 cursor-pointer"
             >
