@@ -1,52 +1,82 @@
-import TypeWriter from "@/components/typewriter";
-import { Metadata } from "next";
 import Link from "next/link";
-import React from "react";
-import ThemeButton from "@/components/ThemeButton"
+import Image from "next/image";
+import ThemeButton from "@/components/ThemeButton";
 
 type AuthLayoutProps = {
   children: React.ReactNode;
 };
 
-export const metadata: Metadata = {
-  title: "Trix Url | Auth",
-  description:"Welcome to Trix Url, where security meets simplicity! Our authentication page is your gateway to a seamless and trustworthy URL shortening experience. Safeguarding your links begins here, with state-of-the-art encryption and user-friendly authentication. Join our community of savvy users, and enjoy the peace of mind that comes with knowing your shortened URLs are in safe hands. Fast, reliable, and secure - because your privacy matters",
-  openGraph:{
-    title:"Trix Url | Auth",
-    description:"Welcome to Trix Url, where security meets simplicity! Our authentication page is your gateway to a seamless and trustworthy URL shortening experience. Safeguarding your links begins here, with state-of-the-art encryption and user-friendly authentication. Join our community of savvy users, and enjoy the peace of mind that comes with knowing your shortened URLs are in safe hands. Fast, reliable, and secure - because your privacy matters",
-    url:"https://trixurl.vercel.app/auth",
-    type:"website"
-  },
-  twitter:{
-    title:"Trix Url | Auth",
-    description:"Welcome to Trix Url, where security meets simplicity! Our authentication page is your gateway to a seamless and trustworthy URL shortening experience. Safeguarding your links begins here, with state-of-the-art encryption and user-friendly authentication. Join our community of savvy users, and enjoy the peace of mind that comes with knowing your shortened URLs are in safe hands. Fast, reliable, and secure - because your privacy matters",
-    creator: '@tomdieu ivan',
-    images: ['https://trixurl.vercel.app/icon.png'],
-  }
-};
-
 const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
   return (
-    <div className="w-screen h-screen flex overflow-x-hidden dark:bg-stone-800">
-      <div className="hidden sm:w-5/12 md:w-7/12 lg:w-8/12 sm:flex flex-col h-full bg-gray-100 dark:bg-stone-800 container mx-auto">
-        <div className="my-2 flex items-center justify-between">
-          <h5 className="text-2xl font-bold cursor-pointer select-none dark:text-stone-50">
-            <Link href={"/"}>Trix Url</Link>
-          </h5>
-          <ThemeButton/>
+    <div className="min-h-screen flex">
+      <div className="hidden lg:flex lg:w-[55%] relative flex-col bg-zinc-950 text-white overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_left,oklch(0.72_0.15_195/0.15),transparent_60%)]" />
+          <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_right,oklch(0.72_0.15_195/0.08),transparent_60%)]" />
         </div>
-        <div className="flex-1 flex items-start justify-center h-full  gap-3 flex-col">
-          <h1 className="sm:text-4xl md:text-5xl lg:text-7xl font-bold flex-wrap dark:text-stone-50">
-            Url Shortener
-          </h1>
 
-          <h5 className="text-medium md:text-3xl font-semibold">
-            <TypeWriter />
-          </h5>
+        <div className="relative z-10 flex flex-col h-full px-12 py-8">
+          <div className="flex items-center justify-between mb-auto">
+            <Link href="/" className="flex items-center gap-2.5">
+              <Image
+                src="/icon.png"
+                width={32}
+                height={32}
+                alt="Trix URL"
+                className="w-8 h-8"
+              />
+              <span className="text-lg font-bold tracking-tight text-white">
+                Trix URL
+              </span>
+            </Link>
+            <ThemeButton />
+          </div>
+
+          <div className="flex-1 flex flex-col justify-center max-w-lg">
+            <h1 className="text-4xl xl:text-5xl font-bold tracking-tight leading-tight mb-4">
+              Short links.
+              <br />
+              <span className="text-cyan-400">Big insights.</span>
+            </h1>
+            <p className="text-lg text-zinc-400 leading-relaxed">
+              Transform long URLs into clean, trackable links. Monitor every
+              click with real-time analytics.
+            </p>
+          </div>
+
+          <div className="mt-auto flex items-center gap-6 text-sm text-zinc-500">
+            <span className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              Free to use
+            </span>
+            <span className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              No credit card
+            </span>
+          </div>
         </div>
       </div>
-      <div className="flex-1 sm:w-7/12 md:w-5/12 lg:w-4/12 h-full bg-white dark:bg-stone-900">
-        {children}
+
+      <div className="flex-1 flex flex-col bg-white dark:bg-zinc-950">
+        <div className="lg:hidden flex items-center justify-between px-6 py-4 border-b border-zinc-200 dark:border-zinc-800">
+          <Link href="/" className="flex items-center gap-2.5">
+            <Image
+              src="/icon.png"
+              width={28}
+              height={28}
+              alt="Trix URL"
+              className="w-7 h-7"
+            />
+            <span className="text-base font-bold tracking-tight">Trix URL</span>
+          </Link>
+          <ThemeButton />
+        </div>
+
+        <div className="flex-1 flex items-center justify-center px-6 py-12">
+          <div className="w-full max-w-sm">
+            {children}
+          </div>
+        </div>
       </div>
     </div>
   );

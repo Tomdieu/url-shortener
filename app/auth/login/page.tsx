@@ -5,9 +5,8 @@ import React from "react";
 type Props = {};
 
 export const metadata: Metadata = {
-  title: 'Trix Url | Login',
-  description: 'Authenticate',
-
+  title: 'Trix URL | Login',
+  description: 'Sign in to your Trix URL account to manage your shortened links, view analytics, and create new short URLs.',
 }
 const LoginPage = (props: Props) => {
 

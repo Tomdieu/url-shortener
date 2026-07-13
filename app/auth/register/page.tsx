@@ -5,9 +5,8 @@ import React from 'react'
 type Props = {}
 
 export const metadata: Metadata = {
-  title: 'Trix Url | Register',
-  description: 'Authenticate',
-
+  title: 'Trix URL | Register',
+  description: 'Create a free Trix URL account to start shortening links, tracking clicks with analytics, and managing your URLs.',
 }
 const RegisterPage = (props: Props) => {
   return (
