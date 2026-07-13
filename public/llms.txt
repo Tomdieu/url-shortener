@@ -1,0 +1,32 @@
+# Trix URL
+
+> Free URL shortening tool with real-time analytics. Shorten long URLs into clean, trackable links and monitor every click with geographic, device, and referrer data.
+
+Trix URL is a free web application that shortens long URLs into short, memorable links. It provides real-time click analytics including geographic location, device type, browser, operating system, and referrer tracking. Users can also generate QR codes for each shortened link.
+
+## Features
+
+- **URL Shortening**: Paste any long URL and get a short, clean link instantly
+- **Click Analytics**: Real-time tracking of clicks with geographic data, device types, browsers, and referrers
+- **QR Code Generation**: Auto-generated QR codes for every short link, downloadable as PNG
+- **Link Management**: Dashboard to view, update, and delete shortened links
+- **Spam Protection**: Built-in URL validation to block malicious links
+- **Free to Use**: No signup required for basic shortening; free account for full analytics
+
+## Key Pages
+
+- [Home](https://trixurl.vercel.app/) — URL shortening tool and feature overview
+- [Login](https://trixurl.vercel.app/auth/login) — Sign in to your account
+- [Register](https://trixurl.vercel.app/auth/register) — Create a free account
+- [Dashboard](https://trixurl.vercel.app/dashboard) — Manage links and view analytics (requires login)
+
+## Pricing
+
+Trix URL is free to use. No paid plans currently.
+
+## Contact
+
+- **Creator**: Tomdieu Ivan
+- **GitHub**: https://github.com/Tomdieu/url-shortener
+- **Email**: ivantom.python@gmail.com
+- **Website**: https://trixurl.vercel.app

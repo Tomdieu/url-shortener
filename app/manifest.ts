@@ -2,9 +2,9 @@ import { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
     return {
-        name: 'Trix Url',
-        short_name: 'Trix Url',
-        description: 'Trix Url is a web app use to shortend long Url',
+        name: 'Trix URL',
+        short_name: 'Trix URL',
+        description: 'Trix URL is a web app to shorten long URLs and track analytics.',
         start_url: '/',
         display: 'standalone',
         background_color: '#fff',

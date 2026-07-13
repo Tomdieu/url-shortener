@@ -1,7 +1,33 @@
-# Block all crawlers for /dashboard
-User-agent: *
-Disallow: /dashboard
-
-# Allow all crawlers
+# Allow all search and AI crawlers
 User-agent: *
 Allow: /
+Disallow: /dashboard
+Disallow: /api/
+
+# Explicitly allow AI search bots
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Block training-only crawlers
+User-agent: CCBot
+Disallow: /
+
+User-agent: omgili
+Disallow: /
+
+Sitemap: https://trixurl.vercel.app/sitemap.xml

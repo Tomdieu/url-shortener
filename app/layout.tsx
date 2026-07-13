@@ -7,7 +7,7 @@ import localFont from "next/font/local";
 import React from "react";
 import NextThemeProvider from "@/providers/NextThemeProvider";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
-import { JSONLD } from "@/constants/jsonld";
+import { JSONLD, SoftwareApplicationLD } from "@/constants/jsonld";
 // import { Analytics } from "@vercel/analytics/react"
 
 const poppins = localFont({
@@ -29,19 +29,23 @@ const poppins = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Trix URL - Your Ultimate URL Shortener",
+  title: {
+    default: "Trix URL — Free URL Shortener with Analytics",
+    template: "%s | Trix URL",
+  },
   description:
-    "Shorten and manage URLs with ease using Trix URL, the ultimate link shortening tool created by Tomdieu Ivan. Track analytics, customize links, and simplify your online experience.",
+    "Trix URL is a free URL shortening tool that transforms long links into short, trackable URLs. Get real-time click analytics, geographic data, QR codes, and device breakdowns for every link you create.",
   authors: [{ name: "Tomdieu Ivan", url: "https://github.com/tomdieu" }],
   creator: "Tomdieu Ivan",
   metadataBase: new URL("https://trixurl.vercel.app"),
   robots: {
     index: true,
     follow: true,
-    nocache: true,
     googleBot: {
       index: true,
       follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
   category: "URL Shortener",
@@ -51,41 +55,46 @@ export const metadata: Metadata = {
   ],
   twitter: {
     card: "summary_large_image",
-    title: "Trix URL - Your Ultimate URL Shortener",
+    title: "Trix URL — Free URL Shortener with Analytics",
     description:
-      "Shorten and manage URLs with ease using Trix URL, created by Tomdieu Ivan. The ultimate tool for link shortening, tracking analytics, and customizing links.",
-    creator: "@tomdieu ivan",
+      "Shorten long URLs into clean, trackable links. Free real-time analytics showing clicks, geography, devices, and referrers for every link.",
+    creator: "@tomdieuivan",
     images: ["https://trixurl.vercel.app/icon.png"],
   },
   openGraph: {
-    title: "Trix URL - Your Ultimate URL Shortener",
-    description:
-      "Shorten and manage URLs with ease using Trix URL, created by Tomdieu Ivan. The ultimate link shortening tool for analytics and link management.",
-    images: ["https://trixurl.vercel.app/icon.png"],
-    creators: ["@tomdieu ivan"],
+    type: "website",
+    locale: "en_US",
     url: "https://trixurl.vercel.app",
     siteName: "Trix URL",
+    title: "Trix URL — Free URL Shortener with Analytics",
+    description:
+      "Shorten long URLs into clean, trackable links. Free real-time analytics showing clicks, geography, devices, and referrers for every link.",
+    images: [
+      {
+        url: "https://trixurl.vercel.app/icon.png",
+        width: 1200,
+        height: 630,
+        alt: "Trix URL — Free URL Shortener with Analytics",
+      },
+    ],
   },
   verification: {
     google: "oL_X940seqpUmflSfAjNxmf39DH707nkgHr__ALLx7c",
   },
   keywords: [
-    "Trix URL",
     "URL shortener",
+    "free link shortener",
+    "short URLs",
+    "link analytics",
+    "click tracking",
+    "QR code generator",
     "link management",
-    "link tracking",
-    "analytics",
-    "custom links",
-    "raccourcisseur d'URL",
-    "gestion de liens",
-    "suivi de liens",
-    "Tomdieu Ivan",
-    "Ivan Gottfried",
-    "ivantom",
-    "Ivan URL shortener",
-    "Ivan link tool",
-    "Trix URL shortening tool",
+    "URL shortening tool",
+    "Trix URL",
   ],
+  alternates: {
+    canonical: "https://trixurl.vercel.app",
+  },
 };
 
 
@@ -114,6 +123,10 @@ export default async function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(JSONLD) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(SoftwareApplicationLD) }}
         />
       </head>
       <body>
