@@ -11,7 +11,7 @@ export default withAuth({
     signIn: '/auth/login',
     signOut: '/auth'
   },
-  secret: process.env.NEXTAUTH_SCRET,
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks:{
     authorized:(param)=>{
       if(param.token) return true;
