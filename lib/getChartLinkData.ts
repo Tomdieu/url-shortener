@@ -6,7 +6,6 @@ export const getChartLinkData = async () => {
     const user = await getCurrentUser();
     if (user) {
 
-        // @ts-ignore
         const linksWithClicks = await prisma.link.findMany({
             where: {
                 ownerId: user.id
@@ -29,7 +28,7 @@ export const getLinkChartData = async (linkId:string) => {
     const user = await getCurrentUser();
     if (user) {
 
-        const linksWithClicks = await prisma.link.findUnique({
+        const linksWithClicks = await prisma.link.findFirst({
             where: {
                 ownerId: user.id,
                 short:linkId

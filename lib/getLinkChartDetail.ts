@@ -1,13 +1,9 @@
 "use server"
 import prisma from "@/lib/prismadb";
-import { Click } from "@prisma/client";
+import { Click } from "@/lib/generated/prisma/client";
 
-import {minus1Year,minus3Month,minus7Days} from "@/lib/"
-
-export interface ClickData {
-  timestamp: string;
-  clicks: number;
-}
+import {minus1Year,minus3Month,minus7Days} from "@/lib/utils/analytics"
+import { ClickData } from "@/lib/utils/analytics"
 
 
 export const getLinkChartDetail = async (

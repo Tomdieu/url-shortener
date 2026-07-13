@@ -1,13 +1,17 @@
-import {z} from "zod"
+import { z } from "zod"
 
-export const userSchema = z.object({
-    name:z.string(),
-    email:z.string(),
-    password:z.string().optional(),
-    confirmPassword:z.string().optional()
+export const profileSchema = z.object({
+    name: z.string().min(1, "Name is required"),
+    email: z.string().email("Invalid email address"),
+})
+
+export const passwordSchema = z.object({
+    currentPassword: z.string().min(1, "Current password is required"),
+    newPassword: z.string().min(8, "Password must be at least 8 characters"),
+    confirmPassword: z.string().min(1, "Please confirm your password"),
 }).refine(
     (values) => {
-        return values.password === values.confirmPassword;
+        return values.newPassword === values.confirmPassword;
     },
     {
         message: "Passwords must match!",
@@ -15,5 +19,5 @@ export const userSchema = z.object({
     }
 );
 
-
-export type UserType = z.infer<typeof userSchema>
+export type ProfileType = z.infer<typeof profileSchema>
+export type PasswordType = z.infer<typeof passwordSchema>

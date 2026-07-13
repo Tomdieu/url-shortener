@@ -16,6 +16,7 @@ import { getUrlTopReferreDomain, getUrlTopLocations, getUrlTopDevices, getTopBro
 import { Button } from '@/components/ui/button';
 import { AlertTriangle } from 'lucide-react';
 import Link from "next/link"
+import QRCode from '@/components/Link/QRCode';
 
 type Props = {
     params: Promise<{ short: string }>
@@ -139,11 +140,16 @@ const LinkDetail = async ({ params, searchParams }: Props) => {
                     </div>
                 </div>
 
-                <div className="flex items-center gap-4 flex-col md:flex-row w-full">
-                    <div className={"max-w-md"}>
+                <div className="flex items-start gap-4 flex-col md:flex-row w-full">
+                    <div className={"max-w-md w-full"}>
                         {link.data && (
                             <UpdateUrl link={link.data} />
                         )}
+                    </div>
+
+                    <div className="flex-shrink-0 p-4 rounded-xl border" style={{ borderColor: 'var(--border)' }}>
+                        <h3 className="text-sm font-semibold mb-3">QR Code</h3>
+                        <QRCode url={process.env.URL + "/" + short} size={180} />
                     </div>
                     {/*<LinkDetailChart linkId={short}/>*/}
 

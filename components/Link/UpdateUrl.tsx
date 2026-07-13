@@ -1,5 +1,5 @@
 "use client"
-import { Link } from "@prisma/client"
+import { Link } from "@/lib/generated/prisma/client"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, } from "@/components/ui/card"
 
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form"
