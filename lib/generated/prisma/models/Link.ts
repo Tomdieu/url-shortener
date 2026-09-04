@@ -189,7 +189,7 @@ export type LinkGroupByOutputType = {
   id: number
   original: string
   short: string
-  ownerId: string
+  ownerId: string | null
   createdAt: Date
   updatedAt: Date
   _count: LinkCountAggregateOutputType | null
@@ -221,7 +221,7 @@ export type LinkWhereInput = {
   id?: Prisma.IntFilter<"Link"> | number
   original?: Prisma.StringFilter<"Link"> | string
   short?: Prisma.StringFilter<"Link"> | string
-  ownerId?: Prisma.StringFilter<"Link"> | string
+  ownerId?: Prisma.StringNullableFilter<"Link"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Link"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Link"> | Date | string
   owner?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
@@ -232,7 +232,7 @@ export type LinkOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   original?: Prisma.SortOrder
   short?: Prisma.SortOrder
-  ownerId?: Prisma.SortOrder
+  ownerId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   owner?: Prisma.UserOrderByWithRelationInput
@@ -246,7 +246,7 @@ export type LinkWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.LinkWhereInput[]
   NOT?: Prisma.LinkWhereInput | Prisma.LinkWhereInput[]
   original?: Prisma.StringFilter<"Link"> | string
-  ownerId?: Prisma.StringFilter<"Link"> | string
+  ownerId?: Prisma.StringNullableFilter<"Link"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Link"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Link"> | Date | string
   owner?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
@@ -257,7 +257,7 @@ export type LinkOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   original?: Prisma.SortOrder
   short?: Prisma.SortOrder
-  ownerId?: Prisma.SortOrder
+  ownerId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.LinkCountOrderByAggregateInput
@@ -274,7 +274,7 @@ export type LinkScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Link"> | number
   original?: Prisma.StringWithAggregatesFilter<"Link"> | string
   short?: Prisma.StringWithAggregatesFilter<"Link"> | string
-  ownerId?: Prisma.StringWithAggregatesFilter<"Link"> | string
+  ownerId?: Prisma.StringNullableWithAggregatesFilter<"Link"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Link"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Link"> | Date | string
 }
@@ -292,7 +292,7 @@ export type LinkUncheckedCreateInput = {
   id?: number
   original: string
   short: string
-  ownerId: string
+  ownerId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   clicks?: Prisma.ClickUncheckedCreateNestedManyWithoutLinkInput
@@ -311,7 +311,7 @@ export type LinkUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   original?: Prisma.StringFieldUpdateOperationsInput | string
   short?: Prisma.StringFieldUpdateOperationsInput | string
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   clicks?: Prisma.ClickUncheckedUpdateManyWithoutLinkNestedInput
@@ -321,7 +321,7 @@ export type LinkCreateManyInput = {
   id?: number
   original: string
   short: string
-  ownerId: string
+  ownerId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -337,7 +337,7 @@ export type LinkUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   original?: Prisma.StringFieldUpdateOperationsInput | string
   short?: Prisma.StringFieldUpdateOperationsInput | string
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -506,7 +506,7 @@ export type LinkScalarWhereInput = {
   id?: Prisma.IntFilter<"Link"> | number
   original?: Prisma.StringFilter<"Link"> | string
   short?: Prisma.StringFilter<"Link"> | string
-  ownerId?: Prisma.StringFilter<"Link"> | string
+  ownerId?: Prisma.StringNullableFilter<"Link"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Link"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Link"> | Date | string
 }
@@ -523,7 +523,7 @@ export type LinkUncheckedCreateWithoutClicksInput = {
   id?: number
   original: string
   short: string
-  ownerId: string
+  ownerId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -556,7 +556,7 @@ export type LinkUncheckedUpdateWithoutClicksInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   original?: Prisma.StringFieldUpdateOperationsInput | string
   short?: Prisma.StringFieldUpdateOperationsInput | string
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -689,7 +689,7 @@ export type $LinkPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     id: number
     original: string
     short: string
-    ownerId: string
+    ownerId: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["link"]>

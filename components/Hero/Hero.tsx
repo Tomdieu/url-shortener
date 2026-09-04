@@ -13,6 +13,7 @@ const Hero = () => {
   const handleShorten = async () => {
     if (!url.trim()) return
     setLoading(true)
+    setShortened('')
     try {
       const res = await fetch('/api/shorten', {
         method: 'POST',
@@ -20,11 +21,15 @@ const Hero = () => {
         body: JSON.stringify({ url: url.trim() }),
       })
       const data = await res.json()
+      if (!res.ok) {
+        alert(data.error || 'Failed to shorten URL')
+        return
+      }
       if (data.shortUrl) {
         setShortened(data.shortUrl)
       }
     } catch {
-      setShortened('https://trixurl.vercel.app/demo')
+      alert('Something went wrong. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -78,7 +83,7 @@ const Hero = () => {
             <input
               type="url"
               value={url}
-              onChange={(e) => setUrl(e.target.value)}
+              onChange={(e) => { setUrl(e.target.value); setShortened('') }}
               onKeyDown={handleKeyDown}
               placeholder="Paste your long URL here..."
               className="url-input"
